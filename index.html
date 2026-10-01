@@ -144,17 +144,49 @@ body.boot,body.boot *{transition:none!important;animation:none!important}
 #drawer .dg>div{display:flex;gap:4px;flex-wrap:wrap}
 #drawer button.ff{display:inline-flex;align-items:center;gap:7px}#drawer button.ff i{width:12px;height:12px;border-radius:50%;display:block;border:1px solid color-mix(in srgb,var(--ink) 40%,transparent)}
 #drawer button[disabled]{opacity:.28;cursor:default}
+
+/* refinement pass */
+#bar button,#bar .srt,#drawer button,#bar button:hover,#bar .srt:hover,#drawer button:hover{background:none;border-radius:0;padding:0 2px;margin:0 9px;min-height:34px;text-underline-offset:9px;text-decoration-thickness:1.5px}
+#bar button:hover,#drawer button:hover{opacity:1;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ink) 45%,transparent)}
+#bar button[aria-pressed=true],#drawer button[aria-pressed=true],#fbtn[aria-expanded=true]{background:none!important;color:var(--ink);opacity:1;text-decoration:underline;text-decoration-color:var(--ink)}
+#bar .cl{gap:0}#bar .cl button:first-child{margin-left:0}
+#bar .nav button{font-size:22px;margin:0 6px;text-decoration:none!important}
+#sw button.f{margin:0;padding:0;min-height:0;text-decoration:none!important}
+#bar .br1{display:flex;justify-content:space-between;align-items:center;gap:6px 18px;flex-wrap:wrap}
+#bar .lt,#bar .rt{display:flex;align-items:center;flex-wrap:wrap;gap:4px 14px}#bar .rt{flex:none}
+#bar .rt #fbtn{margin-left:0}
+#drawer{gap:10px;padding:8px 0 4px}#drawer .dg{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+#drawer .lab{display:flex;flex-direction:column;gap:3px;min-width:120px}#drawer .lab b{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75;font-weight:500;min-width:0}#drawer .lab small{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;min-height:13px}
+#drawer .dg>div{display:flex;gap:2px 0;flex-wrap:wrap;align-items:center}
+#cnt{min-width:0;white-space:nowrap}#ttl{display:none!important}#bar .rt{min-width:0}@media(max-width:899px){#bar .rt{width:100%}#bar .nav{flex:1;min-width:0;justify-content:flex-end}}#room{grid-template-columns:minmax(0,1fr)}#drawer .dg{gap:6px 18px}#drawer .dg>.lab{flex-direction:column;align-items:flex-start;gap:3px}.crumbbar .c{white-space:nowrap}#info{min-width:0}#drawer .dg[hidden]{display:none!important}#drawer .lab{align-items:flex-start;text-align:left}#drawer button,#bar .lt button{text-align:left}
+/* wordmark menu */
+#brand{display:flex;align-items:center;gap:18px;position:relative}
+#bm{font:inherit;font-size:inherit;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-radius:0;padding:0;min-height:0;cursor:pointer}
+#mn{display:flex;gap:18px;opacity:0;visibility:hidden;transform:translateX(-6px);transition:opacity .18s,transform .18s,visibility 0s .18s}
+#mn.on,#brand:hover #mn,#brand:focus-within #mn{opacity:1;visibility:visible;transform:none;transition:opacity .18s,transform .18s}
+#mn button,#mn a{font:inherit;font-size:inherit;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-radius:0;padding:0;min-height:0;cursor:pointer;text-decoration:none;opacity:.8}
+#mn button:hover,#mn a:hover{opacity:1;background:none;text-decoration:underline;text-underline-offset:6px}
+/* purchase */
+.paddle{border-radius:2px;justify-content:space-between;padding:18px 22px;gap:16px}
+.paddle span{letter-spacing:.14em}
+@media(min-width:900px){
+ #room{grid-template-columns:minmax(0,1fr) 440px}
+ #bar{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:12px 56px;background:none!important}
+ #bar .br1,#drawer .dg{display:grid;grid-template-columns:minmax(0,1fr) 440px;column-gap:48px}
+ #bar .rt{display:flex;align-items:center;justify-content:space-between;width:100%}
+ #drawer{display:grid;grid-template-columns:minmax(0,1fr);}
+ #drawer .dg{display:flex;gap:18px}
+}
 #chips[hidden]{display:none!important}.zn{display:none}
 @media(min-width:900px){.zn{display:block;position:absolute;top:70px;bottom:0;width:56px;z-index:3;cursor:pointer}#zl{left:0}#zr{right:0}.zn::after{content:'';position:absolute;top:50%;width:10px;height:10px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);opacity:0;transition:opacity .2s}#zl::after{left:24px;transform:rotate(-45deg)}#zr::after{right:24px;transform:rotate(135deg)}.zn:hover::after{opacity:.7}}
-</style><link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="zn" id="zl" aria-hidden="true"></div><div class="zn" id="zr" aria-hidden="true"></div><div class="crumbbar"><span>Pulido</span><span class="c" id="crumb"></span></div>
+</style><link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="zn" id="zl" aria-hidden="true"></div><div class="zn" id="zr" aria-hidden="true"></div><div class="crumbbar"><div id="brand"><button id="bm" aria-expanded="false" aria-haspopup="true">Pulido</button><nav id="mn" aria-label="Site"><button id="mw">Work</button><button id="abtn">About</button><button id="pbtn">Press</button><a href="mailto:chas@pulido.art">Contact</a></nav></div><span class="c" id="crumb"></span></div>
 <div id="art"><div id="ph"></div><img id="im" alt=""><img id="im2" alt=""></div><div id="info"><h1 id="h"></h1><div class="plaque" id="pl"></div><a class="paddle" id="bid" href="mailto:chas@pulido.art"><span>Purchase</span> <big id="pp"></big></a></div></div>
-<div id="bar"><div class="br1"><span id="st"></span>
+<div id="bar"><div class="br1"><div class="lt"><span id="st"></span>
 <div class="cl"><button data-y="all" aria-pressed="true">All</button><button data-y="2026" aria-pressed="false">2026</button><button data-y="2025" aria-pressed="false">2025</button><button id="nbtn" aria-pressed="false">New</button></div><i class="sep"></i>
 <div class="cl"><button id="vbtn" aria-pressed="true">Single</button><button id="gbtn">Grid</button></div><i class="sep"></i>
-<div class="cl"><button id="cbtn">Catalog</button><button id="abtn">About</button><button id="pbtn">Press</button></div><span class="sp"></span>
-<select class="srt" id="sers" aria-label="Series" hidden></select><select class="srt" id="srt" aria-label="Sort paintings"><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select><button id="fbtn" aria-expanded="false">Filter +</button></div>
-<div id="drawer" hidden><div class="dg"><b>Collection</b><div><button data-y="all" aria-pressed="true">All</button><button data-y="2026" aria-pressed="false">2026</button><button data-y="2025" aria-pressed="false">2025</button></div></div><div class="dg"><b>Color</b><div id="dfam"></div></div><div class="dg"><b>Sort</b><div id="dsrt"></div></div></div>
-<div class="br2"><div id="sw"></div><span class="sp"></span><div class="nav"><button id="prev" aria-label="Previous painting">&#8249;</button><span id="cnt"></span><span id="ttl"></span><button id="next" aria-label="Next painting">&#8250;</button></div></div><div id="chips" hidden></div></div></div>
+<div class="cl"><button id="cbtn">Catalog</button></div></div>
+<div class="rt"><button id="fbtn" aria-expanded="false">Filter +</button><span class="sp"></span><div class="nav"><button id="prev" aria-label="Previous painting">&#8249;</button><span id="cnt"></span><span id="ttl"></span><button id="next" aria-label="Next painting">&#8250;</button></div></div></div>
+<div id="drawer" hidden><div class="dg"><div class="lab"><b id="clab">Color</b><small id="clc"></small></div><div id="sw"></div></div><div class="dg"><div class="lab"><b>Sort</b></div><div id="dsrt"></div><select class="srt" id="srt" aria-label="Sort paintings" hidden><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select></div><div class="dg" id="serg" hidden><div class="lab"><b>Series</b></div><select class="srt" id="sers" aria-label="Series"></select></div><div id="dfam" hidden></div></div><div id="chips" hidden></div></div></div>
 <div id="grid"><button class="x" id="gx" style="float:right;position:sticky;top:0;z-index:2">Close</button><div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase"><span id="gt"></span><button id="tsb" aria-pressed="false">True scale</button><select class="srt" id="srt2" aria-label="Sort paintings"><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select></div><div id="tsn" hidden>Drawn to relative real size. Dashed outline: size not listed, shown at a default size.</div><div id="gg"></div></div>
 <div id="cat"><div class="hd"><span id="ctt"></span><span class="sp"></span><button id="ccp">Copy list</button><button id="cx">Close</button></div><table id="ct"></table></div><div id="about"><div class="in"><button class="x" id="ax" style="float:right;position:sticky;top:0">Close</button><h2>About Chas Pulido</h2>
 <p>Chas Pulido is an abstract artist based in San Francisco with studios in the city and Napa Valley.</p>
@@ -189,7 +221,7 @@ function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').s
  (back.decode?back.decode():Promise.resolve()).then(done,done);
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
 function render(){const r=list[i];app.style.setProperty('--ink',r.ink);app.style.setProperty('--accent',r.accent);app.style.setProperty('--gr',r.ground);document.body.style.background=r.ground;
-showImg(r);$('crumb').textContent=r.crumb;$('h').textContent=r.title;
+showImg(r);$('crumb').textContent=r.crumb.replace(/^Studio Portfolio /i,'');$('h').textContent=r.title;
 $('pl').innerHTML=r.plaque.map(s=>(s==='Available'||s===r.year)?'<span><b>'+fmt(s)+'</b></span>':'<span>'+fmt(s)+'</span>').join('');$('pp').textContent=r.price||'';
 {const med=r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';const dm=r.plaque.find(s=>/\d\s*\u00d7\s*\d/.test(s))||'not listed';
 const body=['Hi Chas,','',"I would like to purchase '"+r.title+"'.",'','Title: '+r.title,'Year: '+r.year,'Medium: '+(med||'not listed'),'Dimensions: '+dm,'Price: '+(r.price||'price on request'),'','Thank you.'].join('\r\n');
@@ -214,7 +246,7 @@ function refresh(){buildList();i=0;gridKey='';chips();render()}
 function pressYear(){document.querySelectorAll('[data-y]').forEach(x=>x.setAttribute('aria-pressed',!nw&&x.dataset.y===yr));$('nbtn').setAttribute('aria-pressed',nw)}
 document.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>{yr=b.dataset.y;nw=false;pressYear();refresh()});
 $('nbtn').onclick=()=>{nw=!nw;pressYear();refresh()};
-if(Object.keys(SERIES).length){const s=$('sers');s.hidden=false;s.innerHTML='<option value="">Series: All</option>'+Object.keys(SERIES).map(n=>'<option>'+n+'</option>').join('');s.onchange=()=>{sr=s.value;s.dataset.on=sr?'1':'';refresh()}}
+if(Object.keys(SERIES).length){const s=$('sers');s.hidden=false;$('serg').hidden=false;s.innerHTML='<option value="">Series: All</option>'+Object.keys(SERIES).map(n=>'<option>'+n+'</option>').join('');s.onchange=()=>{sr=s.value;s.dataset.on=sr?'1':'';refresh()}}
 /* master catalog */
 let cs={k:'n',d:1};
 const medOf=r=>r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';
@@ -305,9 +337,16 @@ SORTS.forEach(([v,l])=>{const b=document.createElement('button');b.textContent=l
 function pickFam(n){cf=cf===n?'':n;refresh();if($('grid').classList.contains('on')){paintGrid();$('grid').scrollTop=0;$('gg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.j===i))}}
 function ui(){const c=cnts();FAMN.forEach(n=>{const b=swBtns[n];if(!b)return;const k=c[n]||0;b.disabled=!k;b.title=n+' - '+k;b.setAttribute('aria-pressed',cf===n);const d=dfBtns[n];d.disabled=!k;d.setAttribute('aria-pressed',cf===n);d.lastChild.textContent=n+' '+k});
  const p=[];if(cf)p.push(cf);if(nw)p.push('New');else if(yr!=='all')p.push(yr);if(sr)p.push(sr);$('st').textContent=(p.length?p.join(' \u00b7 ')+' \u00b7 ':'')+list.length+' works';
+ const sc=cf||(nw?'New':yr!=='all'?yr:'All works');$('cnt').textContent=sc+' \u00b7 '+String(i+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0');
+ $('clab').textContent=cf?'Color: '+cf:'Color';$('clc').textContent=cf?list.length+' works':'';
  $('dsrt').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===sk));$('vbtn').setAttribute('aria-pressed',!document.querySelector('#grid.on'))}
 $('fbtn').onclick=()=>{const d=$('drawer');d.hidden=!d.hidden;$('fbtn').setAttribute('aria-expanded',!d.hidden);$('fbtn').textContent=d.hidden?'Filter +':'Filter \u2212'};
 $('vbtn').onclick=()=>{['grid','press','about','cat','lb'].forEach(id=>$(id).classList.remove('on'));ui()};
+const mn=$('mn'),bm=$('bm');const mo=v=>{mn.classList.toggle('on',v);bm.setAttribute('aria-expanded',v)};
+bm.onclick=()=>mo(!mn.classList.contains('on'));$('brand').onmouseleave=()=>mo(false);
+mn.addEventListener('click',()=>mo(false));
+$('mw').onclick=()=>{['grid','press','about','cat','lb'].forEach(id=>$(id).classList.remove('on'));ui()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')mo(false)});
 $('zl').onclick=()=>{if(!anyOpen())go(-1)};$('zr').onclick=()=>{if(!anyOpen())go(1)};
 chips();render();setTimeout(()=>document.body.classList.remove('boot'),700);
 </script></body></html>
