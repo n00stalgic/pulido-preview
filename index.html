@@ -177,6 +177,22 @@ body.boot,body.boot *{transition:none!important;animation:none!important}
  #drawer{display:grid;grid-template-columns:minmax(0,1fr);}
  #drawer .dg{display:flex;gap:18px}
 }
+
+/* filter tray */
+#bar{position:relative;z-index:6}
+#scrim{position:fixed;inset:0;z-index:4;background:rgba(0,0,0,.28);opacity:0;visibility:hidden;transition:opacity .22s,visibility 0s .22s}#scrim.on{opacity:1;visibility:visible;transition:opacity .22s}
+#drawer{position:absolute;left:0;right:0;bottom:100%;z-index:5;margin:0;padding:16px 22px 18px;background:color-mix(in srgb,var(--gr,#0A6EA6) 96%,#000);border-top:1px solid color-mix(in srgb,var(--ink) 22%,transparent);display:grid;gap:10px;animation:rise .26s cubic-bezier(.2,.7,.2,1)}
+#drawer[hidden]{display:none}
+@keyframes rise{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+#drawer .dh{display:flex;justify-content:space-between;align-items:center}#drawer .dh b{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75;font-weight:500}
+#drawer .dh button{margin:0;font-size:11px}
+#drawer .dg{display:flex;align-items:center;gap:18px;flex-wrap:nowrap}
+#drawer .dg>.lab{flex:none;width:150px}
+#drawer .dg #sw{flex:1;display:flex;gap:10px;flex-wrap:wrap}
+#sw button.f{width:28px;height:28px}#bar #sw button.f[aria-pressed=true],#bar #sw button.f:hover{background:var(--c)!important}#cnt{overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}#bar .nav button{flex:none}
+@media(min-width:900px){#drawer{padding:18px 56px 20px;display:grid}#drawer .dg{display:flex}}
+@media(max-width:899px){#drawer .dg{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){#drawer{animation:none}}
 #chips[hidden]{display:none!important}.zn{display:none}
 @media(min-width:900px){.zn{display:block;position:absolute;top:70px;bottom:0;width:56px;z-index:3;cursor:pointer}#zl{left:0}#zr{right:0}.zn::after{content:'';position:absolute;top:50%;width:10px;height:10px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);opacity:0;transition:opacity .2s}#zl::after{left:24px;transform:rotate(-45deg)}#zr::after{right:24px;transform:rotate(135deg)}.zn:hover::after{opacity:.7}}
 </style><link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="zn" id="zl" aria-hidden="true"></div><div class="zn" id="zr" aria-hidden="true"></div><div class="crumbbar"><div id="brand"><button id="bm" aria-expanded="false" aria-haspopup="true">Pulido</button><nav id="mn" aria-label="Site"><button id="mw">Work</button><button id="abtn">About</button><button id="pbtn">Press</button><a href="mailto:chas@pulido.art">Contact</a></nav></div><span class="c" id="crumb"></span></div>
@@ -186,7 +202,7 @@ body.boot,body.boot *{transition:none!important;animation:none!important}
 <div class="cl"><button id="vbtn" aria-pressed="true">Single</button><button id="gbtn">Grid</button></div><i class="sep"></i>
 <div class="cl"><button id="cbtn">Catalog</button></div></div>
 <div class="rt"><button id="fbtn" aria-expanded="false">Filter +</button><span class="sp"></span><div class="nav"><button id="prev" aria-label="Previous painting">&#8249;</button><span id="cnt"></span><span id="ttl"></span><button id="next" aria-label="Next painting">&#8250;</button></div></div></div>
-<div id="drawer" hidden><div class="dg"><div class="lab"><b id="clab">Color</b><small id="clc"></small></div><div id="sw"></div></div><div class="dg"><div class="lab"><b>Sort</b></div><div id="dsrt"></div><select class="srt" id="srt" aria-label="Sort paintings" hidden><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select></div><div class="dg" id="serg" hidden><div class="lab"><b>Series</b></div><select class="srt" id="sers" aria-label="Series"></select></div><div id="dfam" hidden></div></div><div id="chips" hidden></div></div></div>
+<div id="scrim"></div><div id="drawer" hidden><div class="dh"><b>Filter works</b><button id="fclr" hidden>Clear</button></div><div class="dg"><div class="lab"><b id="clab">Color</b><small id="clc"></small></div><div id="sw"></div></div><div class="dg"><div class="lab"><b>Sort</b></div><div id="dsrt"></div><select class="srt" id="srt" aria-label="Sort paintings" hidden><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select></div><div class="dg" id="serg" hidden><div class="lab"><b>Series</b></div><select class="srt" id="sers" aria-label="Series"></select></div><div id="dfam" hidden></div></div><div id="chips" hidden></div></div></div>
 <div id="grid"><button class="x" id="gx" style="float:right;position:sticky;top:0;z-index:2">Close</button><div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase"><span id="gt"></span><button id="tsb" aria-pressed="false">True scale</button><select class="srt" id="srt2" aria-label="Sort paintings"><option value="def">Sort: Default</option><option value="pa">Price: low to high</option><option value="pd">Price: high to low</option><option value="sa">Size: small to large</option><option value="sd">Size: large to small</option></select></div><div id="tsn" hidden>Drawn to relative real size. Dashed outline: size not listed, shown at a default size.</div><div id="gg"></div></div>
 <div id="cat"><div class="hd"><span id="ctt"></span><span class="sp"></span><button id="ccp">Copy list</button><button id="cx">Close</button></div><table id="ct"></table></div><div id="about"><div class="in"><button class="x" id="ax" style="float:right;position:sticky;top:0">Close</button><h2>About Chas Pulido</h2>
 <p>Chas Pulido is an abstract artist based in San Francisco with studios in the city and Napa Valley.</p>
@@ -212,7 +228,7 @@ function famOf(h){const c=[1,3,5].map(k=>parseInt(h.slice(k,k+2),16)/255),mx=Mat
  if(H<12||H>=345)return l>.7?'Pink':'Red';if(H<40)return'Orange';if(H<70)return'Gold';if(H<165)return'Green';if(H<200)return'Teal';if(H<255)return'Blue';if(H<290)return'Violet';return l>.62?'Pink':'Magenta'}
 ROOMS.forEach(r=>{r.fam=famOf(r.ground)});
 const famCol={};FAMN.forEach(n=>{const m=ROOMS.filter(r=>r.fam===n);if(!m.length)return;const a=[0,0,0];m.forEach(r=>[1,3,5].forEach((k,x)=>a[x]+=parseInt(r.ground.slice(k,k+2),16)));famCol[n]='rgb('+a.map(v=>Math.round(v/m.length)).join(',')+')'});
-let i=0,list=ROOMS,gridKey='',yr='all',sk='def',sr='',nw=false,tsm=false,cf='';const gridScroll={};const $=id=>document.getElementById(id),app=$('app');
+let i=0,list=ROOMS,gridKey='',yr='all',sk='def',sr='',nw=false,tsm=false,cf=[];const gridScroll={};const $=id=>document.getElementById(id),app=$('app');
 const wide=()=>innerWidth>=900;
 const fmt=s=>s.replace(/(\d)\s*[\u00d7x]\s*(\d)/g,'$1\u2009\u00d7\u2009$2').replace(/(\d)\s+in\b/,'$1\u2009in');
 let front=$('im'),back=$('im2'),tok=0,mail={s:'',b:''};
@@ -237,7 +253,7 @@ const pnum=r=>{const m=/\$([\d.]+)K/.exec(r.price||'');return m?parseFloat(m[1])
 const area=r=>{const s=r.plaque.find(x=>/\d\s*[\u00d7x]\s*\d/.test(x));const m=s&&/(\d+(?:\.\d+)?)\s*[\u00d7x]\s*(\d+(?:\.\d+)?)/.exec(s);return m?m[1]*m[2]:null};
 const dimOf=r=>{const s=r.plaque.find(x=>/\d\s*[\u00d7x]\s*\d/.test(x));return s?fmt(s):''};
 function baseList(){let l=ROOMS.filter(r=>yr==='all'||r.year===yr);if(sr)l=l.filter(r=>r.series===sr);if(nw){const k=r=>NEWKEYS.indexOf(r.year+'-'+r.n);l=ROOMS.filter(r=>k(r)>=0).sort((a,b)=>k(a)-k(b))}return l}
-function buildList(){let l=baseList();if(cf){const f=l.filter(r=>r.fam===cf);if(f.length)l=f;else cf=''}
+function buildList(){let l=baseList();if(cf.length){const f=l.filter(r=>cf.includes(r.fam));if(f.length)l=f;else cf=[]}
  if(sk!=='def'){const f=sk[0]==='p'?pnum:area,dir=sk[1]==='a'?1:-1;l=l.map((r,n)=>[r,n,f(r)]).sort((a,b)=>{if(a[2]===null&&b[2]===null)return a[1]-b[1];if(a[2]===null)return 1;if(b[2]===null)return -1;return (a[2]-b[2])*dir||a[1]-b[1]}).map(x=>x[0])}
  list=l}
 function setSort(v,fromBar){sk=v;const cur=list[i];buildList();i=0;gridKey='';['srt','srt2'].forEach(id=>{$(id).value=v;$(id).dataset.on=v==='def'?'':'1'});chips();render();if(fromBar&&v!=='def'&&!$('grid').classList.contains('on')){openGrid();$('grid').scrollTop=0}else if($('grid').classList.contains('on')){paintGrid();$('grid').scrollTop=0;$('gg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.j===i))}}
@@ -257,7 +273,7 @@ function paintCat(){const rows=catRows(),th=(k,l,c)=>'<th data-k="'+k+'"'+(cs.k=
  $('ct').querySelectorAll('tbody tr').forEach((tr,j)=>{tr.children[1].textContent=rows[j].title});
  $('ctt').textContent='Master catalog - '+ROOMS.length;
  $('ct').querySelectorAll('th[data-k]').forEach(h=>h.onclick=()=>{const k=h.dataset.k;cs=cs.k===k?{k,d:-cs.d}:{k,d:1};paintCat()});
- $('ct').querySelectorAll('tr.r').forEach(tr=>tr.onclick=()=>{const r=ROOMS[+tr.dataset.id];yr='all';nw=false;sr='';cf='';if($('sers'))$('sers').value='';pressYear();buildList();i=list.indexOf(r);gridKey='';chips();$('cat').classList.remove('on');render()})}
+ $('ct').querySelectorAll('tr.r').forEach(tr=>tr.onclick=()=>{const r=ROOMS[+tr.dataset.id];yr='all';nw=false;sr='';cf=[];if($('sers'))$('sers').value='';pressYear();buildList();i=list.indexOf(r);gridKey='';chips();$('cat').classList.remove('on');render()})}
 $('cbtn').onclick=()=>{const r=list[i];$('cat').style.setProperty('--pg',r.ground);$('cat').style.setProperty('--pink',r.ink);paintCat();$('cat').classList.add('on');$('cat').scrollTop=0};
 $('cx').onclick=()=>$('cat').classList.remove('on');
 $('ccp').onclick=()=>{const txt=catRows().map(r=>[r.title,r.year,dimOf(r)||'size not listed',r.price||'price on request'].join(' | ')).join('\n');const done=()=>{$('ccp').textContent='Copied';setTimeout(()=>$('ccp').textContent='Copy list',1800)};
@@ -331,16 +347,19 @@ $('abtn').onclick=()=>ov('about',list[i]);$('ax').onclick=()=>$('about').classLi
 const SORTS=[['def','Default'],['pa','Price low-high'],['pd','Price high-low'],['sa','Size small-large'],['sd','Size large-small']];
 const cnts=()=>{const o={};baseList().forEach(r=>o[r.fam]=(o[r.fam]||0)+1);return o};
 const swBtns={},dfBtns={};
-FAMN.filter(n=>famCol[n]).forEach(n=>{const b=document.createElement('button');b.className='f';b.style.background=famCol[n];b.dataset.n=n;b.setAttribute('aria-label',n);b.onclick=()=>pickFam(n);$('sw').appendChild(b);swBtns[n]=b;
+FAMN.filter(n=>famCol[n]).forEach(n=>{const b=document.createElement('button');b.className='f';b.style.background=famCol[n];b.style.setProperty('--c',famCol[n]);b.dataset.n=n;b.setAttribute('aria-label',n);b.onclick=()=>pickFam(n);b.onmouseenter=()=>{hv=n+' \u00b7 '+(b.dataset.k||0)+' works';ui()};b.onmouseleave=()=>{hv='';ui()};$('sw').appendChild(b);swBtns[n]=b;
  const d=document.createElement('button');d.className='ff';d.innerHTML='<i></i><span></span>';d.firstChild.style.background=famCol[n];d.onclick=()=>pickFam(n);$('dfam').appendChild(d);dfBtns[n]=d});
-SORTS.forEach(([v,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.v=v;b.onclick=()=>setSort(v,v!=='def');$('dsrt').appendChild(b)});
-function pickFam(n){cf=cf===n?'':n;refresh();if($('grid').classList.contains('on')){paintGrid();$('grid').scrollTop=0;$('gg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.j===i))}}
-function ui(){const c=cnts();FAMN.forEach(n=>{const b=swBtns[n];if(!b)return;const k=c[n]||0;b.disabled=!k;b.title=n+' - '+k;b.setAttribute('aria-pressed',cf===n);const d=dfBtns[n];d.disabled=!k;d.setAttribute('aria-pressed',cf===n);d.lastChild.textContent=n+' '+k});
- const p=[];if(cf)p.push(cf);if(nw)p.push('New');else if(yr!=='all')p.push(yr);if(sr)p.push(sr);$('st').textContent=(p.length?p.join(' \u00b7 ')+' \u00b7 ':'')+list.length+' works';
- const sc=cf||(nw?'New':yr!=='all'?yr:'All works');$('cnt').textContent=sc+' \u00b7 '+String(i+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0');
- $('clab').textContent=cf?'Color: '+cf:'Color';$('clc').textContent=cf?list.length+' works':'';
- $('dsrt').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===sk));$('vbtn').setAttribute('aria-pressed',!document.querySelector('#grid.on'))}
-$('fbtn').onclick=()=>{const d=$('drawer');d.hidden=!d.hidden;$('fbtn').setAttribute('aria-expanded',!d.hidden);$('fbtn').textContent=d.hidden?'Filter +':'Filter \u2212'};
+[['def','Default'],['p','Price'],['s','Size']].forEach(([v,l])=>{const b=document.createElement('button');b.textContent=l;b.dataset.v=v;b.onclick=()=>{let nv='def';if(v!=='def'){nv=sk===v+'a'?v+'d':v+'a'}setSort(nv,nv!=='def');closeTray()};$('dsrt').appendChild(b)});
+function pickFam(n){cf=cf.includes(n)?cf.filter(x=>x!==n):cf.concat(n);refresh();if($('grid').classList.contains('on')){paintGrid();$('grid').scrollTop=0;$('gg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.j===i))}}
+let hv='';function ui(){const c=cnts();FAMN.forEach(n=>{const b=swBtns[n];if(!b)return;const k=c[n]||0;b.disabled=!k;b.title=n+' - '+k;b.setAttribute('aria-pressed',cf.includes(n));b.dataset.k=k;const d=dfBtns[n];d.disabled=!k;d.lastChild.textContent=n+' '+k});
+ const p=[];if(cf.length)p.push(cf.join(' + '));if(nw)p.push('New');else if(yr!=='all')p.push(yr);if(sr)p.push(sr);$('st').textContent=(p.length?p.join(' \u00b7 ')+' \u00b7 ':'')+list.length+' works';
+ const sc=cf.length?cf.join(' + '):(nw?'New':yr!=='all'?yr:'All works');$('cnt').textContent=sc+' \u00b7 '+String(i+1).padStart(2,'0')+' / '+String(list.length).padStart(2,'0');
+ $('clab').textContent=cf.length?'Color: '+cf.join(' + '):'Color';$('clc').textContent=hv?hv:(cf.length?list.length+' works':'');$('fclr').hidden=!cf.length&&sk==='def';
+ $('dsrt').querySelectorAll('button').forEach(b=>{const v=b.dataset.v,on=v==='def'?sk==='def':sk[0]===v;b.setAttribute('aria-pressed',on);b.textContent=v==='def'?'Default':(v==='p'?'Price':'Size')+(on?(sk[1]==='a'?' \u2191':' \u2193'):'')});$('vbtn').setAttribute('aria-pressed',!document.querySelector('#grid.on'))}
+function closeTray(){$('drawer').hidden=true;$('scrim').classList.remove('on');$('fbtn').setAttribute('aria-expanded',false);$('fbtn').textContent='Filter +'}
+function openTray(){$('drawer').hidden=false;$('scrim').classList.add('on');$('fbtn').setAttribute('aria-expanded',true);$('fbtn').textContent='Close \u00d7'}
+$('fbtn').onclick=()=>$('drawer').hidden?openTray():closeTray();$('scrim').onclick=closeTray;$('fclr').onclick=()=>{cf=[];hv='';if(sk!=='def'){setSort('def',false)}else refresh();ui()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTray()});
 $('vbtn').onclick=()=>{['grid','press','about','cat','lb'].forEach(id=>$(id).classList.remove('on'));ui()};
 const mn=$('mn'),bm=$('bm');const mo=v=>{mn.classList.toggle('on',v);bm.setAttribute('aria-expanded',v)};
 bm.onclick=()=>mo(!mn.classList.contains('on'));$('brand').onmouseleave=()=>mo(false);
