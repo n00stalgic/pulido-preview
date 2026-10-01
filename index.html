@@ -91,7 +91,8 @@ h1{text-wrap:balance}.plaque{font-variant-numeric:tabular-nums}
 #toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,12px);z-index:50;background:rgba(0,0,0,.86);color:#fff;border-radius:14px;padding:12px 16px;font-size:14px;display:flex;gap:12px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100vw - 24px)}
 #toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}#toast button{min-height:32px;font-size:13px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){#info.in>*{animation:none}#art img{transition:none}}
-</style></head><body><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="crumbbar"><span>Pulido</span><span class="c" id="crumb"></span></div>
+body.boot,body.boot *{transition:none!important;animation:none!important}
+</style></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="crumbbar"><span>Pulido</span><span class="c" id="crumb"></span></div>
 <div id="art"><div id="ph"></div><img id="im" alt=""><img id="im2" alt=""></div><div id="info"><div id="prc"></div><h1 id="h"></h1><div class="plaque" id="pl"></div><a class="paddle" id="bid" href="mailto:chas@pulido.art"><span>Purchase</span> <big id="pp"></big></a></div></div>
 <div id="bar"><div class="row"><div><button data-y="all" aria-pressed="true">All 139</button> <button data-y="2026" aria-pressed="false">2026</button> <button data-y="2025" aria-pressed="false">2025</button> <button id="gbtn">Grid</button> <button id="abtn">About</button> <button id="pbtn">Press</button></div></div>
 <div class="row nav"><button id="prev">Prev</button><span id="cnt"></span><span id="ttl"></span><button id="next">Next</button></div><div id="chips"></div></div></div>
@@ -108,7 +109,7 @@ let i=0,list=ROOMS,gridKey='';const gridScroll={};const $=id=>document.getElemen
 const wide=()=>innerWidth>=900;
 const fmt=s=>s.replace(/(\d)\s*[\u00d7x]\s*(\d)/g,'$1\u2009\u00d7\u2009$2').replace(/(\d)\s+in\b/,'$1\u2009in');
 let front=$('im'),back=$('im2'),tok=0,mail={s:'',b:''};
-function showImg(r){const t=++tok;const ph=$('ph');ph.style.backgroundImage='url('+r.ph+')';ph.style.opacity=1;back.alt=r.title;back.src=r.src;
+function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').style.opacity=0;front.alt=r.title;front.src=r.src;front.classList.add('on');return}const t=++tok;const ph=$('ph');ph.style.backgroundImage='url('+r.ph+')';ph.style.opacity=1;back.alt=r.title;back.src=r.src;
  const done=()=>{if(t!==tok)return;setTimeout(()=>{if(t===tok)ph.style.opacity=0},260);back.classList.add('on');front.classList.remove('on');const x=front;front=back;back=x};
  (back.decode?back.decode():Promise.resolve()).then(done,done);
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
@@ -187,5 +188,5 @@ $('px').onclick=()=>$('press').classList.remove('on');
 function ov(id,r){const e=$(id);e.style.setProperty('--pg',r.ground);e.style.setProperty('--pink',r.ink);e.classList.add('on');e.scrollTop=0}
 $('abtn').onclick=()=>ov('about',list[i]);$('ax').onclick=()=>$('about').classList.remove('on');
 {const c=ROOMS.find(r=>r.year==='2025'&&/flare of fire/i.test(r.title))||ROOMS[0];$('pcov').src=c.src}
-chips();render();
+chips();render();setTimeout(()=>document.body.classList.remove('boot'),700);
 </script></body></html>
