@@ -93,7 +93,7 @@ h1{text-wrap:balance}.plaque{font-variant-numeric:tabular-nums}
 @media(prefers-reduced-motion:reduce){#info.in>*{animation:none}#art img{transition:none}}
 body.boot,body.boot *{transition:none!important;animation:none!important}
 </style></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="crumbbar"><span>Pulido</span><span class="c" id="crumb"></span></div>
-<div id="art"><div id="ph"></div><img id="im" alt=""><img id="im2" alt=""></div><div id="info"><div id="prc"></div><h1 id="h"></h1><div class="plaque" id="pl"></div><a class="paddle" id="bid" href="mailto:chas@pulido.art"><span>Purchase</span> <big id="pp"></big></a></div></div>
+<div id="art"><div id="ph"></div><img id="im" alt=""><img id="im2" alt=""></div><div id="info"><h1 id="h"></h1><div class="plaque" id="pl"></div><a class="paddle" id="bid" href="mailto:chas@pulido.art"><span>Purchase</span> <big id="pp"></big></a></div></div>
 <div id="bar"><div class="row"><div><button data-y="all" aria-pressed="true">All 139</button> <button data-y="2026" aria-pressed="false">2026</button> <button data-y="2025" aria-pressed="false">2025</button> <button id="gbtn">Grid</button> <button id="abtn">About</button> <button id="pbtn">Press</button></div></div>
 <div class="row nav"><button id="prev">Prev</button><span id="cnt"></span><span id="ttl"></span><button id="next">Next</button></div><div id="chips"></div></div></div>
 <div id="grid"><button class="x" id="gx" style="float:right;position:sticky;top:0;z-index:2">Close</button><div id="gt" style="font-size:13px;letter-spacing:.14em;text-transform:uppercase"></div><div id="gg"></div></div>
@@ -115,7 +115,6 @@ function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').s
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
 function render(){const r=list[i];app.style.setProperty('--ink',r.ink);app.style.setProperty('--accent',r.accent);document.body.style.background=r.ground;
 showImg(r);$('crumb').textContent=r.crumb;$('h').textContent=r.title;
-$('prc').innerHTML=r.price?'<b>'+r.price+'</b>':'<span>Price on request</span>';
 $('pl').innerHTML=r.plaque.map(s=>(s==='Available'||s===r.year)?'<span><b>'+fmt(s)+'</b></span>':'<span>'+fmt(s)+'</span>').join('');$('pp').textContent=r.price||'';
 {const med=r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';const dm=r.plaque.find(s=>/\d\s*\u00d7\s*\d/.test(s))||'not listed';
 const body=['Hi Chas,','',"I would like to purchase '"+r.title+"'.",'','Title: '+r.title,'Year: '+r.year,'Medium: '+(med||'not listed'),'Dimensions: '+dm,'Price: '+(r.price||'price on request'),'','Thank you.'].join('\r\n');
