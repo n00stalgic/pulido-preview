@@ -237,7 +237,7 @@ const wide=()=>innerWidth>=900;
 const fmt=s=>s.replace(/(\d)\s*[\u00d7x]\s*(\d)/g,'$1\u2009\u00d7\u2009$2').replace(/(\d)\s+in\b/,'$1\u2009in');
 let front=$('im'),back=$('im2'),tok=0,mail={s:'',b:''};
 function setSrc(el,r){if(r.ss){el.sizes='100vw';el.srcset=r.ss}else el.removeAttribute('srcset');el.src=r.src}
-function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').style.opacity=0;front.alt=r.title;setSrc(front,r);front.classList.add('on');return}const t=++tok;const ph=$('ph');ph.style.backgroundImage='url('+r.ph+')';ph.style.opacity=1;back.alt=r.title;setSrc(back,r);
+function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').style.opacity=0;front.alt=r.title;setSrc(front,r);front.classList.add('on');return}const t=++tok;const ph=$('ph');ph.style.backgroundImage='url('+r.ph+')';ph.style.opacity=1;front.classList.remove('on');back.classList.remove('on');back.alt=r.title;setSrc(back,r);
  const done=()=>{if(t!==tok)return;setTimeout(()=>{if(t===tok)ph.style.opacity=0},260);back.classList.add('on');front.classList.remove('on');const x=front;front=back;back=x};
  (back.decode?back.decode():Promise.resolve()).then(done,done);
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();if(n.ss){p.sizes='100vw';p.srcset=n.ss}p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
