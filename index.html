@@ -352,7 +352,7 @@ $('pbtn').onclick=()=>{const r=list[i];const pr=$('press');pr.style.setProperty(
 $('px').onclick=()=>$('press').classList.remove('on');
 function ov(id,r){const e=$(id);e.style.setProperty('--pg',r.ground);e.style.setProperty('--pink',r.ink);e.classList.add('on');e.scrollTop=0}
 $('abtn').onclick=()=>ov('about',list[i]);$('ax').onclick=()=>$('about').classList.remove('on');
-{const c=ROOMS.find(r=>r.year==='2025'&&/flare of fire/i.test(r.title))||ROOMS[0];$('pcov').src=c.src}
+$('pcov').src='img/press-cover.webp'
 /* toolbar: status, color families, drawer */
 const SORTS=[['def','Default'],['pa','Price low-high'],['pd','Price high-low'],['sa','Size small-large'],['sd','Size large-small']];
 const cnts=()=>{const o={};baseList().forEach(r=>o[r.fam]=(o[r.fam]||0)+1);return o};
