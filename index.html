@@ -243,7 +243,7 @@ function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').s
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();if(n.ss){p.sizes='100vw';p.srcset=n.ss}p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
 function render(){const r=list[i];if(catBack&&r!==catBack.rec){catBack=null;const cb=document.getElementById('cback');if(cb)cb.hidden=true}app.style.setProperty('--ink',r.ink);app.style.setProperty('--accent',r.accent);app.style.setProperty('--gr',r.ground);document.body.style.background=r.ground;
 showImg(r);$('crumb').textContent='SF Studio Portfolio';$('h').textContent=r.title;
-$('pl').innerHTML=r.plaque.map(s=>(s==='Available'||s===r.year)?'<span><b>'+fmt(s)+'</b></span>':'<span>'+fmt(s)+'</span>').join('');$('pp').textContent=r.price||'';
+$('pl').innerHTML=r.plaque.filter(s=>s!==r.year).map(s=>(s==='Available')?'<span><b>'+fmt(s)+'</b></span>':'<span>'+fmt(s)+'</span>').join('');$('pp').textContent=r.price||'';
 {const med=r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';const dm=r.plaque.find(s=>/\d\s*\u00d7\s*\d/.test(s))||'not listed';
 const body=['Hi Chas,','',"I would like to purchase '"+r.title+"'.",'','Title: '+r.title,'Year: '+r.year,'Medium: '+(med||'not listed'),'Dimensions: '+dm,'Price: '+(r.price||'price on request'),'','Thank you.'].join('\r\n');
 mail={s:'Purchase inquiry - '+r.title,b:body};
@@ -274,7 +274,7 @@ const medOf=r=>r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';
 function catRows(){const f={n:r=>ROOMS.indexOf(r),t:r=>r.title.toLowerCase(),y:r=>r.year,s:r=>area(r),p:r=>pnum(r)}[cs.k];
  return ROOMS.map((r,n)=>[r,n,f(r)]).sort((a,b)=>{const x=a[2],y=b[2];if(x===null&&y===null)return a[1]-b[1];if(x===null)return 1;if(y===null)return -1;return (x<y?-1:x>y?1:0)*cs.d||a[1]-b[1]}).map(x=>x[0])}
 function paintCat(){const rows=catRows(),th=(k,l,c)=>'<th data-k="'+k+'"'+(cs.k===k?' data-d="'+(cs.d>0?'\u2191':'\u2193')+'"':'')+(c?' class="'+c+'"':'')+'>'+l+'</th>';
- $('ct').innerHTML='<thead><tr><th></th>'+th('t','Title')+th('y','Year')+th('s','Size')+th('p','Price')+'<th class="m">Medium</th></tr></thead><tbody>'+rows.map(r=>'<tr class="r" data-id="'+ROOMS.indexOf(r)+'"><td><img alt="" src="'+r.th+'"></td><td></td><td>'+r.year+'</td><td>'+(dimOf(r)||'Not listed')+'</td><td>'+(r.price||'On request')+'</td><td class="m">'+medOf(r)+'</td></tr>').join('')+'</tbody>';
+ $('ct').innerHTML='<thead><tr><th></th>'+th('t','Title')+th('s','Size')+th('p','Price')+'<th class="m">Medium</th></tr></thead><tbody>'+rows.map(r=>'<tr class="r" data-id="'+ROOMS.indexOf(r)+'"><td><img alt="" src="'+r.th+'"></td><td></td><td>'+(dimOf(r)||'Not listed')+'</td><td>'+(r.price||'On request')+'</td><td class="m">'+medOf(r)+'</td></tr>').join('')+'</tbody>';
  $('ct').querySelectorAll('tbody tr').forEach((tr,j)=>{tr.children[1].textContent=rows[j].title});
  $('ctt').textContent='Master catalog - '+ROOMS.length;
  $('ct').querySelectorAll('th[data-k]').forEach(h=>h.onclick=()=>{const k=h.dataset.k;cs=cs.k===k?{k,d:-cs.d}:{k,d:1};paintCat()});
@@ -285,7 +285,7 @@ $('cback').onclick=catBackGo;
 addEventListener('popstate',()=>{if(catBack&&!$('cat').classList.contains('on'))catRestore()});
 $('cbtn').onclick=()=>{catBack=null;$('cback').hidden=true;const r=list[i];$('cat').style.setProperty('--pg',r.ground);$('cat').style.setProperty('--pink',r.ink);paintCat();$('cat').classList.add('on');$('cat').scrollTop=0};
 $('cx').onclick=()=>$('cat').classList.remove('on');
-$('ccp').onclick=()=>{const txt=catRows().map(r=>[r.title,r.year,dimOf(r)||'size not listed',r.price||'price on request'].join(' | ')).join('\n');const done=()=>{$('ccp').textContent='Copied';setTimeout(()=>$('ccp').textContent='Copy list',1800)};
+$('ccp').onclick=()=>{const txt=catRows().map(r=>[r.title,dimOf(r)||'size not listed',r.price||'price on request'].join(' | ')).join('\n');const done=()=>{$('ccp').textContent='Copied';setTimeout(()=>$('ccp').textContent='Copy list',1800)};
  const fb=()=>{const a=document.createElement('textarea');a.value=txt;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove();done()};
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,fb);else fb()};
 /* painted rect of the current art */
