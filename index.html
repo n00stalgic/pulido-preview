@@ -242,7 +242,7 @@ function showImg(r){if(document.body.classList.contains('boot')){tok++;$('ph').s
  (back.decode?back.decode():Promise.resolve()).then(done,done);
  [1,-1].forEach(d=>{const n=list[(i+d+list.length)%list.length];const p=new Image();if(n.ss){p.sizes='100vw';p.srcset=n.ss}p.src=n.src;if(p.decode)p.decode().catch(()=>{})})}
 function render(){const r=list[i];if(catBack&&r!==catBack.rec){catBack=null;const cb=document.getElementById('cback');if(cb)cb.hidden=true}app.style.setProperty('--ink',r.ink);app.style.setProperty('--accent',r.accent);app.style.setProperty('--gr',r.ground);document.body.style.background=r.ground;
-showImg(r);$('crumb').textContent='SF Studio Portfolio '+r.year;$('h').textContent=r.title;
+showImg(r);$('crumb').textContent='SF Studio Portfolio';$('h').textContent=r.title;
 $('pl').innerHTML=r.plaque.map(s=>(s==='Available'||s===r.year)?'<span><b>'+fmt(s)+'</b></span>':'<span>'+fmt(s)+'</span>').join('');$('pp').textContent=r.price||'';
 {const med=r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s))||'';const dm=r.plaque.find(s=>/\d\s*\u00d7\s*\d/.test(s))||'not listed';
 const body=['Hi Chas,','',"I would like to purchase '"+r.title+"'.",'','Title: '+r.title,'Year: '+r.year,'Medium: '+(med||'not listed'),'Dimensions: '+dm,'Price: '+(r.price||'price on request'),'','Thank you.'].join('\r\n');
@@ -300,7 +300,7 @@ function fly(from,to,src,after){const f=document.createElement('img');f.id='fly'
 function paintGrid(){const key=(list.length===ROOMS.length?'all':list[0].year)+'|'+sk+'|'+tsm+'|'+cf+'|'+nw+'|'+list.length;if(key===gridKey)return;gridKey=key;const g=$('gg');g.innerHTML='';
  list.forEach((q,j)=>{const b=document.createElement('button');b.dataset.j=j;b.title=q.title;b.style.background=q.ground;b.style.color=q.ink;
  b.innerHTML='<img decoding="async" loading="lazy" alt="" src="'+q.th+'"><span><b></b><i></i></span>';b.querySelector('b').textContent=q.title;b.querySelector('i').textContent=(q.price||'Price on request')+(dimOf(q)?' \u00b7 '+dimOf(q):'');
- b.onclick=()=>pick(j,b);g.appendChild(b)});$('gt').textContent=nw?'New rooms':(yr==='all'?'All rooms - '+ROOMS.length:yr+' rooms');
+ b.onclick=()=>pick(j,b);g.appendChild(b)});$('gt').textContent=nw?'New rooms':(yr==='all'?'All rooms - '+ROOMS.length:'SF Studio Portfolio');
  g.classList.toggle('cap',sk!=='def'||tsm);g.classList.toggle('ts',tsm);$('tsn').hidden=!tsm;$('tsb').setAttribute('aria-pressed',tsm);
  if(tsm){const k=wide()?3.4:1.7;const btns=g.querySelectorAll('button');list.forEach((q,j)=>{const m=/(\d+(?:\.\d+)?)\s*[\u00d7x]\s*(\d+(?:\.\d+)?)/.exec(q.plaque.find(x=>/\d\s*[\u00d7x]\s*\d/.test(x))||'');let a=48,b=48,nd=true;if(m){a=+m[1];b=+m[2];nd=false}
   const land=q.w>=q.h;const W=land?Math.max(a,b):Math.min(a,b),H=land?Math.min(a,b):Math.max(a,b);const bt=btns[j];bt.style.width=(W*k)+'px';bt.style.height=(H*k)+'px';if(nd)bt.classList.add('nd')})}
@@ -362,7 +362,7 @@ FAMN.filter(n=>famCol[n]).forEach(n=>{const b=document.createElement('button');b
 function pickFam(n){cf=cf.includes(n)?cf.filter(x=>x!==n):cf.concat(n);refresh();if($('grid').classList.contains('on')){paintGrid();$('grid').scrollTop=0;$('gg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.j===i))}}
 let hv='';function ui(){const c=cnts();FAMN.forEach(n=>{const b=swBtns[n];if(!b)return;const k=c[n]||0;b.disabled=!k;b.title=n;b.setAttribute('aria-pressed',cf.includes(n));b.dataset.k=k;const d=dfBtns[n];d.disabled=!k;d.lastChild.textContent=n});
  const p=[];if(cf.length)p.push(cf.join(' + '));if(nw)p.push('New');else if(yr!=='all')p.push(yr);if(sr)p.push(sr);$('st').textContent=ROOMS.length+' works';
- const sc=cf.length?cf.join(' + '):(nw?'New':yr!=='all'?yr:'All works');$('cnt').textContent=sc+' \u00b7 '+String(i+1).padStart(2,'0')+(list.length===ROOMS.length?' / '+String(list.length).padStart(2,'0'):'');
+ const sc=cf.length?cf.join(' + '):(nw?'New':yr!=='all'?'Portfolio':'All works');$('cnt').textContent=sc+' \u00b7 '+String(i+1).padStart(2,'0')+(list.length===ROOMS.length?' / '+String(list.length).padStart(2,'0'):'');
  $('clab').textContent=cf.length?'Color: '+cf.join(' + '):'Color';$('clc').textContent=hv?hv:'';$('fclr').hidden=!cf.length&&sk==='def';
  $('dsrt').querySelectorAll('button').forEach(b=>{const v=b.dataset.v,on=v==='def'?sk==='def':sk[0]===v;b.setAttribute('aria-pressed',on);b.textContent=v==='def'?'Default':(v==='p'?'Price':'Size')+(on?(sk[1]==='a'?' \u2191':' \u2193'):'')});$('vbtn').setAttribute('aria-pressed',!document.querySelector('#grid.on'))}
 function closeTray(){$('drawer').hidden=true;$('scrim').classList.remove('on');$('fbtn').setAttribute('aria-expanded',false);$('fbtn').textContent='Filter +'}
