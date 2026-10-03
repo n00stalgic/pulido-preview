@@ -108,7 +108,7 @@ export function plateSvg(p            )         {
   const rows = p.rooms
     .filter((r) => r.meta)
     .map((r, i) => {
-      const y = 1900 + i * 62;
+      const y = 1885 + i * 62;
       const mark = esc(r.mark || roman[i] || "");
       return (
         `<text x="150" y="${y}" font-family="Cinzel,serif" font-size="26" letter-spacing="6" fill="${GOLD}">${mark}</text>` +
@@ -139,7 +139,7 @@ export function plateSvg(p            )         {
     .join("");
   const dig = (p.digest.match(/.{1,32}/g) ?? []).map(
     (r, i) =>
-      `<text x="${PLATE_W / 2}" y="${2265 + i * 26}" text-anchor="middle" font-family="'DM Mono',monospace" font-size="17" letter-spacing="3" fill="${GOLD}" opacity=".75">${r}</text>`,
+      `<text x="${PLATE_W / 2}" y="${2232 + i * 26}" text-anchor="middle" font-family="'DM Mono',monospace" font-size="17" letter-spacing="3" fill="${GOLD}" opacity=".75">${r}</text>`,
   );
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${PLATE_W} ${PLATE_H}" role="img" aria-label="Accession plate ${esc(p.accession)}">` +
@@ -159,11 +159,11 @@ export function plateSvg(p            )         {
     `<text x="${cx}" y="1790" text-anchor="middle" font-family="'DM Mono',monospace" font-size="24" letter-spacing="5" fill="${GOLD}">CONFIGURATION ${esc(p.index)}</text>` +
     `<text x="${cx}" y="1830" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="34" fill="${BONE}" opacity=".8">of ${esc(p.total)}. This one.</text>` +
     rows +
-    `<text x="150" y="2235" font-family="Cinzel,serif" font-size="24" letter-spacing="10" fill="${BONE}">SEALED  /  ${esc(clock(p.sealedAt))}</text>` +
-    `<text x="${PLATE_W - 150}" y="2235" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".5">SHA-256</text>` +
+    `<text x="150" y="2200" font-family="Cinzel,serif" font-size="24" letter-spacing="10" fill="${BONE}">SEALED  /  ${esc(clock(p.sealedAt))}</text>` +
+    `<text x="${PLATE_W - 150}" y="2200" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".5">SHA-256</text>` +
     dig.join("") +
-    `<text x="150" y="2325" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="30" fill="${BONE}" opacity=".7">Origin is becoming scarce. Yours is filed here.</text>` +
-    `<text x="${PLATE_W - 150}" y="2325" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".45">${esc(p.accession)}  /  ONE OF ONE  /  NOT INTENDED TO SCALE</text>` +
+    `<text x="150" y="2290" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="30" fill="${BONE}" opacity=".7">Origin is becoming scarce. Yours is filed here.</text>` +
+    `<text x="${PLATE_W - 150}" y="2290" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".45">${esc(p.accession)}  /  ONE OF ONE  /  NOT INTENDED TO SCALE</text>` +
     `</svg>`
   );
 }

@@ -69,7 +69,7 @@ export function runResolve(canvas                   , o             )           
         if (a < 0.01) continue;
         for (let k = 0; k < 9; k++) {
           const f = Math.floor(hash(id * 9 + k) * 3);
-          ctx.fillStyle = `rgba(${f === 2 ? BONE : GOLD},${(0.05 + f * 0.05) * a * 1.0})`;
+          ctx.fillStyle = `rgba(${f === 2 ? BONE : GOLD},${(0.08 + f * 0.07) * a})`;
           const gx = x0 + ((k % 3) - 1) * step;
           const gy = y0 + (Math.floor(k / 3) - 1) * step;
           ctx.fillRect(gx - dot / 2, gy - dot / 2, dot, dot);
