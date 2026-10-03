@@ -1,0 +1,9 @@
+<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel=stylesheet>
+<body style="margin:0;background:#080808"><canvas id=c style="position:fixed;inset:0;width:100%;height:100%"></canvas>
+<script type=module>
+import {runResolve} from "./resolveField.js";
+const d=await (await fetch("data.json")).json();
+await document.fonts.load("500 40px 'Cormorant Garamond'");await document.fonts.load("italic 400 30px 'Cormorant Garamond'");
+const q=new URLSearchParams(location.search);
+runResolve(document.getElementById("c"),{faces:d.faces,total:"43,252,003,274,489,856,000",freeze:q.has("t")?+q.get("t"):undefined});
+</script>
