@@ -61,7 +61,7 @@ function geometry(p            , cx        , cy        )         {
   const h = p.digest;
   const pts = p.faces.map((f, i) => {
     const a = byte(h, i * 2) * Math.PI * 2;
-    const r = 150 + byte(h, i * 2 + 1) * 380;
+    const r = 150 + byte(h, i * 2 + 1) * 420;
     return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r, f };
   });
   const out           = [];
@@ -70,13 +70,13 @@ function geometry(p            , cx        , cy        )         {
     const r = 120 + byte(h, 60 + k) * 520;
     out.push(`<circle cx="${(cx + Math.cos(a) * r).toFixed(1)}" cy="${(cy + Math.sin(a) * r).toFixed(1)}" r="${(1.2 + byte(h, 100 + k) * 2.2).toFixed(1)}" fill="${BONE}" opacity="${(0.12 + byte(h, 140 + k) * 0.3).toFixed(2)}"/>`);
   }
-  for (const r of [610, 575, 380, 190]) {
-    out.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${GOLD}" stroke-width="${r === 610 ? 2 : 1}" opacity="${r === 610 ? 0.55 : 0.2}"${r === 575 || r === 190 ? ' stroke-dasharray="3 9"' : ""}/>`);
+  for (const r of [650, 612, 400, 200]) {
+    out.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${GOLD}" stroke-width="${r === 650 ? 2 : 1}" opacity="${r === 650 ? 0.55 : 0.2}"${r === 612 || r === 200 ? ' stroke-dasharray="3 9"' : ""}/>`);
   }
   for (let i = 0; i < 360; i += 5) {
     const a = (i * Math.PI) / 180;
     const l = i % 30 === 0 ? 22 : 9;
-    out.push(`<line x1="${(cx + Math.cos(a) * 610).toFixed(1)}" y1="${(cy + Math.sin(a) * 610).toFixed(1)}" x2="${(cx + Math.cos(a) * (610 - l)).toFixed(1)}" y2="${(cy + Math.sin(a) * (610 - l)).toFixed(1)}" stroke="${GOLD}" stroke-width="1.5" opacity=".4"/>`);
+    out.push(`<line x1="${(cx + Math.cos(a) * 650).toFixed(1)}" y1="${(cy + Math.sin(a) * 650).toFixed(1)}" x2="${(cx + Math.cos(a) * (650 - l)).toFixed(1)}" y2="${(cy + Math.sin(a) * (650 - l)).toFixed(1)}" stroke="${GOLD}" stroke-width="1.5" opacity=".4"/>`);
   }
   const path = pts.map((q, i) => `${i ? "L" : "M"}${q.x.toFixed(1)} ${q.y.toFixed(1)}`).join(" ");
   out.push(`<path d="${path}" fill="none" stroke="${GOLD}" stroke-width="2" opacity=".55"/>`);
@@ -101,69 +101,119 @@ function wave(peaks          , x        , y        )         {
     .join("");
 }
 
+const T = (x        , y        , t        , o                                                                               = {}) =>
+  `<text x="${x}" y="${y}"${o.a ? ` text-anchor="${o.a}"` : ""} font-family="${o.f ?? "'DM Mono',monospace"}" font-size="${o.s ?? 20}" letter-spacing="${o.ls ?? 4}" fill="${o.c ?? BONE}" opacity="${o.op ?? 0.7}">${esc(t)}</text>`;
+
 export function plateSvg(p            )         {
   const cx = PLATE_W / 2;
-  const cy = 1100;
-  const roman = ["I", "II", "III", "IV"];
-  const rows = p.rooms
-    .filter((r) => r.meta)
-    .map((r, i) => {
-      const y = 1885 + i * 62;
-      const mark = esc(r.mark || roman[i] || "");
-      return (
-        `<text x="150" y="${y}" font-family="Cinzel,serif" font-size="26" letter-spacing="6" fill="${GOLD}">${mark}</text>` +
-        `<text x="230" y="${y}" font-family="Cinzel,serif" font-size="26" letter-spacing="8" fill="${BONE}">${esc(r.verb)}</text>` +
-        `<text x="520" y="${y}" font-family="'DM Mono',monospace" font-size="22" letter-spacing="3" fill="${BONE}" opacity=".7">${esc(r.place)}  /  ${esc(r.meta)}</text>` +
-        (r.peaks && r.peaks.length ? wave(r.peaks, 1180, y - 8) : "") +
-        `<text x="${PLATE_W - 150}" y="${y}" text-anchor="end" font-family="'DM Mono',monospace" font-size="22" letter-spacing="3" fill="${GOLD}" opacity=".85">${esc(clock(r.at))}</text>` +
-        `<line x1="150" y1="${y + 20}" x2="${PLATE_W - 150}" y2="${y + 20}" stroke="${GOLD}" stroke-width="1" opacity=".18"/>`
-      );
-    })
-    .join("");
-  const frags = p.fragments.filter(Boolean).slice(0, 3);
-  const spots = [
-    { x: 150, y: 640, rot: -4, anchor: "start" },
-    { x: PLATE_W - 150, y: 1500, rot: 3, anchor: "end" },
-    { x: 150, y: 1560, rot: -2, anchor: "start" },
+  const cy = 1130;
+  const L = 150;
+  const R = PLATE_W - 150;
+  const roman = ["I", "II", "III", "IV", "V"];
+  const done = p.rooms.filter((r) => r.at);
+  const kinds = Array.from(new Set(p.rooms.map((r) => r.meta.split("/").pop()?.trim().toUpperCase()).filter(Boolean)))            ;
+  const out           = [];
+  out.push(`<rect width="${PLATE_W}" height="${PLATE_H}" fill="#080808"/>`);
+  out.push(`<defs><radialGradient id="pg" cx="50%" cy="47%" r="52%"><stop offset="0" stop-color="${GOLD}" stop-opacity=".1"/><stop offset="1" stop-color="${GOLD}" stop-opacity="0"/></radialGradient></defs><rect width="${PLATE_W}" height="${PLATE_H}" fill="url(#pg)"/>`);
+  out.push(`<rect x="60" y="60" width="${PLATE_W - 120}" height="${PLATE_H - 120}" fill="none" stroke="${GOLD}" stroke-width="2" opacity=".55"/><rect x="84" y="84" width="${PLATE_W - 168}" height="${PLATE_H - 168}" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".25"/>`);
+  // header block, top left
+  out.push(T(L, 180, "HYAKUTAKE", { c: GOLD, ls: 8, s: 22, op: 1 }));
+  out.push(T(L, 214, "FIELD RECORD", { ls: 8, s: 20, op: 0.75 }));
+  const hdr                       = [
+    ["RECORD NO.", [p.accession]],
+    ["NAME", [p.name]],
+    ["DATE", [day(p.sealedAt)]],
+    ["LOCATION", ["EXPOSITION PARK", "LOS ANGELES, CA"]],
   ];
-  const hand = frags
-    .map((f, i) => {
-      const s = spots[i];
-      return wrap(f, 26, 3)
-        .map(
-          (ln, j) =>
-            `<text x="${s.x}" y="${s.y + j * 54}" text-anchor="${s.anchor}" transform="rotate(${s.rot} ${s.x} ${s.y})" font-family="'Homemade Apple',cursive" font-size="34" fill="#fff" opacity=".88">${esc(ln)}</text>`,
-        )
-        .join("");
-    })
-    .join("");
-  const dig = (p.digest.match(/.{1,32}/g) ?? []).map(
-    (r, i) =>
-      `<text x="${PLATE_W / 2}" y="${2232 + i * 26}" text-anchor="middle" font-family="'DM Mono',monospace" font-size="17" letter-spacing="3" fill="${GOLD}" opacity=".75">${r}</text>`,
+  let y = 300;
+  for (const [k, vs] of hdr) {
+    out.push(T(L, y, k, { s: 18, ls: 4, op: 0.5 }));
+    vs.forEach((v, i) => out.push(T(L + 250, y + i * 34, v, { s: 20, ls: 4, op: 0.9, c: k === "RECORD NO." ? GOLD : BONE })));
+    y += vs.length * 34 + 22;
+  }
+  // rooms, top right
+  out.push(T(R, 180, "FIVE ROOMS", { a: "end", c: GOLD, ls: 8, s: 22, op: 1 }));
+  p.rooms.filter((r) => r.meta).forEach((r, i) => {
+    const yy = 244 + i * 40;
+    out.push(T(R - 440, yy, `${r.mark || roman[i] || ""}.`, { s: 19, op: 0.55 }));
+    out.push(T(R - 380, yy, r.verb.charAt(0) + r.verb.slice(1).toLowerCase(), { s: 20, op: 0.9 }));
+    out.push(T(R, yy, clock(r.at), { a: "end", s: 19, c: GOLD, op: 0.9 }));
+  });
+  // orbital diagram with crosshair axes
+  out.push(`<line x1="${cx}" y1="440" x2="${cx}" y2="${cy + 700}" stroke="${GOLD}" stroke-width="1" opacity=".3"/><line x1="${L - 40}" y1="${cy}" x2="${R + 40}" y2="${cy}" stroke="${GOLD}" stroke-width="1" opacity=".3"/>`);
+  out.push(`<circle cx="${cx}" cy="440" r="9" fill="#080808" stroke="${GOLD}" stroke-width="1.5" opacity=".8"/><circle cx="${cx}" cy="${cy + 700}" r="9" fill="#080808" stroke="${GOLD}" stroke-width="1.5" opacity=".8"/>`);
+  out.push(geometry(p, cx, cy));
+  // left data block
+  const lb                     = [
+    ["COORDINATES", "34.0141 N  118.2870 W"],
+    ["OBSERVATIONS", String(done.length)],
+    ["MEDIUM", kinds.join(" / ")],
+  ];
+  lb.forEach(([k, v], i) => {
+    out.push(T(L, 1930 + i * 58, k, { s: 18, op: 0.5 }));
+    out.push(T(L + 250, 1930 + i * 58, v, { s: 19, op: 0.9 }));
+  });
+  // right data block
+  const rb                     = [
+    ["CONFIGURATION", p.index],
+    ["OF", p.total],
+    ["REGISTRY", p.accession],
+    ["SEALED", clock(p.sealedAt)],
+    ["SHA-256", p.digest.slice(0, 16) + "..."],
+  ];
+  rb.forEach(([k, v], i) => {
+    out.push(T(R - 560, 1900 + i * 46, k, { s: 17, op: 0.5 }));
+    out.push(T(R, 1900 + i * 46, v, { a: "end", s: 17, op: 0.9, c: k === "CONFIGURATION" ? GOLD : BONE }));
+  });
+  out.push(T(R, 2150, "A CITY OBSERVED", { a: "end", s: 16, op: 0.55 }));
+  out.push(T(R, 2174, "CANNOT BE RECREATED", { a: "end", s: 16, op: 0.55 }));
+  // cursive fragment, centered low
+  const frag = p.fragments.filter(Boolean)[0];
+  if (frag) {
+    wrap(frag, 24, 2).forEach((ln, j) =>
+      out.push(`<text x="${cx}" y="${2010 + j * 56}" text-anchor="middle" transform="rotate(-3 ${cx} 2010)" font-family="'Homemade Apple',cursive" font-size="38" fill="#fff" opacity=".9">${esc(ln)}</text>`),
+    );
+    out.push(`<line x1="${cx - 330}" y1="2150" x2="${cx + 330}" y2="2150" stroke="${GOLD}" stroke-width="1.5" opacity=".45"/>`);
+  }
+  // evidence strip
+  const bw = 284;
+  const gap = 20;
+  const by = 2210;
+  const bh = 120;
+  const box = (i        ) => `<rect x="${L + i * (bw + gap)}" y="${by}" width="${bw}" height="${bh}" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".4"/>`;
+  for (let i = 0; i < 5; i++) out.push(box(i));
+  const bx = (i        ) => L + i * (bw + gap);
+  // 1 geometry glyph
+  const g = p.faces.map((f, i) => {
+    const a = (i / p.faces.length) * Math.PI * 2 - Math.PI / 2;
+    const rr = 34 + f * 8;
+    return `${(bx(0) + bw / 2 + Math.cos(a) * rr).toFixed(1)},${(by + bh / 2 + Math.sin(a) * rr).toFixed(1)}`;
+  });
+  out.push(`<polygon points="${g.join(" ")}" fill="none" stroke="${GOLD}" stroke-width="1.5" opacity=".8"/>`);
+  g.forEach((q) => out.push(`<circle cx="${q.split(",")[0]}" cy="${q.split(",")[1]}" r="3.5" fill="${BONE}"/>`));
+  // 2 waveform
+  const pk = (p.rooms.find((r) => r.peaks && r.peaks.length)?.peaks ?? []).slice(0, 40);
+  pk.forEach((v, i) => {
+    const hh = Math.max(4, Math.round(v * 80));
+    out.push(`<rect x="${bx(1) + 14 + i * 6.4}" y="${by + bh / 2 - hh / 2}" width="3" height="${hh}" fill="${GOLD}" opacity=".85"/>`);
+  });
+  // 3 caption facsimile
+  const cap = p.fragments.filter(Boolean)[1] ?? p.fragments.filter(Boolean)[0] ?? "";
+  wrap(cap, 22, 2).forEach((ln, j) =>
+    out.push(`<text x="${bx(2) + 18}" y="${by + 54 + j * 34}" font-family="'Homemade Apple',cursive" font-size="20" fill="#fff" opacity=".85">${esc(ln)}</text>`),
   );
+  // 4 digest as dot grid
+  for (let i = 0; i < 48; i++) {
+    const on = byte(p.digest, i) > 0.5;
+    out.push(`<circle cx="${bx(3) + 30 + (i % 12) * 20}" cy="${by + 26 + Math.floor(i / 12) * 24}" r="${on ? 4 : 2}" fill="${on ? GOLD : BONE}" opacity="${on ? 0.9 : 0.3}"/>`);
+  }
+  // 5 seal point
+  out.push(`<circle cx="${bx(4) + bw / 2}" cy="${by + bh / 2}" r="34" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".5"/><circle cx="${bx(4) + bw / 2}" cy="${by + bh / 2}" r="6" fill="${GOLD}"/>`);
+  out.push(`<line x1="${bx(4) + bw / 2 - 60}" y1="${by + bh / 2}" x2="${bx(4) + bw / 2 + 60}" y2="${by + bh / 2}" stroke="${GOLD}" opacity=".4"/>`);
+  out.push(T(cx, 2300, `${p.accession}  /  ONE OF ONE  /  VERSION ${p.version}`, { a: "middle", s: 15, op: 0.4 }));
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${PLATE_W} ${PLATE_H}" role="img" aria-label="Accession plate ${esc(p.accession)}">` +
-    `<rect width="${PLATE_W}" height="${PLATE_H}" fill="#080808"/>` +
-    `<defs><radialGradient id="pg" cx="50%" cy="46%" r="55%"><stop offset="0" stop-color="${GOLD}" stop-opacity=".12"/><stop offset="1" stop-color="${GOLD}" stop-opacity="0"/></radialGradient></defs>` +
-    `<rect width="${PLATE_W}" height="${PLATE_H}" fill="url(#pg)"/>` +
-    `<rect x="60" y="60" width="${PLATE_W - 120}" height="${PLATE_H - 120}" fill="none" stroke="${GOLD}" stroke-width="2" opacity=".55"/>` +
-    `<rect x="84" y="84" width="${PLATE_W - 168}" height="${PLATE_H - 168}" fill="none" stroke="${GOLD}" stroke-width="1" opacity=".25"/>` +
-    `<text x="150" y="190" font-family="'DM Mono',monospace" font-size="22" letter-spacing="7" fill="${GOLD}">HYAKUTAKE  /  EXPOSITION PARK</text>` +
-    `<text x="${PLATE_W - 150}" y="190" text-anchor="end" font-family="'DM Mono',monospace" font-size="22" letter-spacing="7" fill="${BONE}" opacity=".55">VERSION ${p.version}</text>` +
-    `<text x="150" y="300" font-family="Cinzel,serif" font-size="38" letter-spacing="14" fill="${BONE}" opacity=".8">FIELD RECORD</text>` +
-    `<text x="140" y="540" font-family="Cinzel,serif" font-size="190" letter-spacing="2" fill="${GOLD}">${esc(p.accession)}</text>` +
-    `<text x="${PLATE_W - 150}" y="330" text-anchor="end" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="84" fill="${BONE}">${esc(p.name)}</text>` +
-    `<text x="${PLATE_W - 150}" y="380" text-anchor="end" font-family="'DM Mono',monospace" font-size="24" letter-spacing="6" fill="${BONE}" opacity=".6">${esc(day(p.sealedAt))}</text>` +
-    geometry(p, cx, cy) +
-    hand +
-    `<text x="${cx}" y="1790" text-anchor="middle" font-family="'DM Mono',monospace" font-size="24" letter-spacing="5" fill="${GOLD}">CONFIGURATION ${esc(p.index)}</text>` +
-    `<text x="${cx}" y="1830" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="34" fill="${BONE}" opacity=".8">of ${esc(p.total)}. This one.</text>` +
-    rows +
-    `<text x="150" y="2200" font-family="Cinzel,serif" font-size="24" letter-spacing="10" fill="${BONE}">SEALED  /  ${esc(clock(p.sealedAt))}</text>` +
-    `<text x="${PLATE_W - 150}" y="2200" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".5">SHA-256</text>` +
-    dig.join("") +
-    `<text x="150" y="2290" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="30" fill="${BONE}" opacity=".7">Origin is becoming scarce. Yours is filed here.</text>` +
-    `<text x="${PLATE_W - 150}" y="2290" text-anchor="end" font-family="'DM Mono',monospace" font-size="17" letter-spacing="4" fill="${BONE}" opacity=".45">${esc(p.accession)}  /  ONE OF ONE  /  NOT INTENDED TO SCALE</text>` +
+    out.join("") +
     `</svg>`
   );
 }
