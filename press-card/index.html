@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Press card preview - Seen in London</title>
+<style>
+:root{--ink:#0b0a09;--gold:#c9a85c;--ivory:#f2ead8;--sage:#8a8f6c}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--ivory);font-family:Georgia,"Times New Roman",serif}
+.wrap{max-width:1040px;margin:0 auto;padding:56px 22px 80px}
+.eyebrow{letter-spacing:.32em;font:600 11px/1 system-ui,sans-serif;color:var(--gold);text-transform:uppercase}
+h1{font-weight:400;font-size:clamp(40px,8vw,88px);line-height:.98;margin:18px 0 10px;letter-spacing:-.01em}
+h1 em{color:var(--gold);font-style:italic}
+.meta{font:500 14px/1.6 system-ui,sans-serif;color:#cfc6b0;letter-spacing:.04em}
+.stage{position:relative;margin:34px 0 22px;aspect-ratio:16/9;background:#14110e;overflow:hidden;border:1px solid #2a2418}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.stage .tag{position:absolute;left:16px;bottom:14px;font:500 11px/1 system-ui,sans-serif;letter-spacing:.2em;color:#fff8;text-transform:uppercase;text-shadow:0 1px 6px #000}
+.row{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between;margin-top:26px}
+blockquote{margin:0;max-width:520px;font-size:clamp(20px,3vw,28px);line-height:1.25;font-style:italic}
+blockquote small{display:block;margin-top:10px;font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-style:normal}
+.btn{display:inline-block;padding:14px 22px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font:600 12px/1 system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;transition:.25s}
+.btn:hover{background:var(--gold);color:var(--ink)}
+.sig{display:block;margin-top:46px;text-decoration:none;color:var(--ivory)}
+.sig .lbl{font:600 11px/1 system-ui,sans-serif;letter-spacing:.3em;color:var(--sage);text-transform:uppercase}
+.sig svg{width:min(560px,100%);height:auto;display:block;margin-top:6px;overflow:visible}
+.sig text{font-family:"Snell Roundhand","Segoe Script","Brush Script MT",cursive;font-size:84px;fill:none;stroke:var(--ivory);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400}
+.sig.go text{animation:draw 2.6s ease forwards .2s}
+.sig .dot{fill:var(--gold);opacity:0}.sig.go .dot{animation:pop .5s ease forwards 2.6s}
+.sig:hover text{stroke:var(--gold)}
+.sig .go-txt{display:inline-block;margin-top:8px;font:500 13px/1 system-ui,sans-serif;color:#cfc6b0;letter-spacing:.08em;border-bottom:1px solid #5a4e30}
+@keyframes draw{to{stroke-dashoffset:0;fill:var(--ivory);fill-opacity:.0}}
+@keyframes pop{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.sig text{stroke-dashoffset:0;animation:none}.sig .dot{opacity:1}}
+.note{margin-top:60px;font:12px/1.5 system-ui,sans-serif;color:#7a7260}
+</style></head><body><div class="wrap">
+<div class="eyebrow">Press &nbsp;/&nbsp; Seen in London</div>
+<h1>Artexpo <em>London</em></h1>
+<div class="meta">October 16, 2026 &nbsp;/&nbsp; Herringham Hall, Regent's Park &nbsp;/&nbsp; One day only</div>
+<div class="stage" id="stage"><canvas id="cv"></canvas><div class="tag">Chas Pulido, painting live</div></div>
+<div class="row">
+<blockquote>"Full-body action painting, vibrant textures."<small>Artexpo London, on Instagram</small></blockquote>
+<a class="btn" href="https://www.instagram.com/reel/DeJYrQCqpFM/" target="_blank" rel="noopener">Watch the reel</a>
+</div>
+<a class="sig" id="sig" href="https://www.instagram.com/chaspulido" target="_blank" rel="noopener" aria-label="Chas Pulido on Instagram">
+<span class="lbl">Follow the paint</span>
+<svg viewBox="0 0 560 120"><text x="4" y="92">@chaspulido</text><circle class="dot" cx="548" cy="86" r="5"/></svg>
+<span class="go-txt">instagram.com/chaspulido</span></a>
+<div class="note">Preview only. Not live on the site.</div>
+</div>
+<script>
+(function(){
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),img=new Image(),done=false;
+img.crossOrigin='anonymous';img.src='../img/2025-81-1280.webp';
+var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+var W,H,strokes=[];
+function size(){var r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);W=cv.width=Math.round(r.width*d);H=cv.height=Math.round(r.height*d);if(done)full()}
+function full(){ctx.drawImage(img,0,0,W,H)}
+function make(){strokes=[];seed=7;
+ var n=46;for(var i=0;i<n;i++){var row=i%6,y=(row+.5)/6*H+(rnd()-.5)*H/9,x0=rnd()*W*.2-W*.05,len=W*(.55+rnd()*.6),ang=(rnd()-.5)*.5,th=H/6*(0.9+rnd()*.6);strokes.push({x:x0,y:y,len:len,ang:ang,th:th,j:rnd()*6})}
+}
+function drawStroke(s,p){ctx.save();ctx.beginPath();var steps=26,L=s.len*p;
+ var pts=[];for(var k=0;k<=steps;k++){var t=k/steps*L;pts.push([s.x+Math.cos(s.ang)*t,s.y+Math.sin(s.ang)*t+Math.sin(t/90+s.j)*s.th*.12])}
+ ctx.moveTo(pts[0][0],pts[0][1]-s.th/2);for(var k=1;k<=steps;k++)ctx.lineTo(pts[k][0],pts[k][1]-s.th/2*(1-.25*Math.abs(Math.sin(k+s.j))));
+ for(var k=steps;k>=0;k--)ctx.lineTo(pts[k][0],pts[k][1]+s.th/2*(1-.25*Math.abs(Math.cos(k+s.j))));
+ ctx.closePath();ctx.clip();ctx.drawImage(img,0,0,W,H);ctx.restore()}
+function play(){if(done)return;var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduce){done=true;full();return}
+ make();ctx.fillStyle='#14110e';ctx.fillRect(0,0,W,H);var i=0,p=0,per=70,last=performance.now();
+ (function frame(now){var dt=Math.min(40,now-last);last=now;p+=dt/per;
+  while(p>=1&&i<strokes.length){drawStroke(strokes[i],1);i++;p-=1}
+  if(i<strokes.length){drawStroke(strokes[i],Math.min(1,p));requestAnimationFrame(frame)}else{done=true;full()}})(last)}
+function ready(){size();var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();play();setTimeout(function(){document.getElementById('sig').classList.add('go')},1200)}},{threshold:.35});io.observe(document.getElementById('stage'))}
+img.onload=ready;window.addEventListener('resize',function(){if(img.complete)size()});
+})();
+</script></body></html>
