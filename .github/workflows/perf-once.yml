@@ -1,0 +1,67 @@
+name: perf-once
+on:
+  push:
+    paths: ['.github/workflows/perf-once.yml']
+permissions:
+  contents: write
+jobs:
+  b:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pillow
+      - name: build
+        run: |
+          python3 - <<'PY'
+          import re,json,base64,io,os,glob,hashlib
+          from PIL import Image
+          Image.MAX_IMAGE_PIXELS=None
+          def enc(im,L,q,out):
+              im=im.convert('RGB');w,h=im.size;s=min(1,L/max(w,h))
+              if s<1:im=im.resize((max(1,round(w*s)),max(1,round(h*s))),Image.LANCZOS)
+              im.save(out,'WEBP',quality=q,method=4)
+          def du(d,name,L,q):
+              enc(Image.open(io.BytesIO(base64.b64decode(d.split(',',1)[1]))),L,q,'img/'+name);return 'img/'+name
+          h=open('index.html').read()
+          R,_=json.JSONDecoder().raw_decode(h[h.find('const ROOMS=')+12:])
+          S,_=json.JSONDecoder().raw_decode(h[h.find('S=[')+2:])
+          rep={}
+          for r in R:
+              i=f"{r['year']}-{int(r['n']):02d}"
+              if r['src'].startswith('data:'):
+                  rep[r['src']]=du(r['src'],i+'-lo.webp',1280,75);rep[r['th']]=du(r['th'],i+'-lt.webp',360,72)
+          for s in S:
+              c=s.get('clip')
+              if c and c.startswith('data:'):rep[c]=du(c,'press-'+hashlib.sha1(c.encode()).hexdigest()[:8]+'.webp',1200,78)
+          for k,v in rep.items():
+              assert k in h;h=h.replace('"'+k+'"','"'+v+'"')
+          ids=sorted(f[4:-10] for f in glob.glob('img/*-3200.webp'))
+          for i in ids:
+              im=Image.open(f'img/{i}-3200.webp');im.load()
+              for L,q,t in((360,72,'360'),(1600,74,'1600'),(2400,72,'2400')):enc(im,L,q,f'img/{i}-{t}.webp')
+              h=h.replace(f'img/{i}-1280.webp 1280w, img/{i}-3200.webp 3200w',f'img/{i}-1600.webp 1600w, img/{i}-2400.webp 2400w')
+              h=h.replace(f'"img/{i}-1280.webp"',f'"img/{i}-1600.webp"').replace(f'"img/{i}-480.webp"',f'"img/{i}-360.webp"')
+              for t in('3200','480','1280'):(os.path.exists(f'img/{i}-{t}.webp') and os.remove(f'img/{i}-{t}.webp'))
+          for r in R:
+              if r.get('lowres'):
+                  i=f"{r['year']}-{int(r['n']):02d}"
+                  enc(Image.open(f'img/{i}-1280.webp'),1280,74,f'img/{i}-1280.webp')
+                  enc(Image.open(f'img/{i}-480.webp'),360,72,f'img/{i}-360.webp');os.remove(f'img/{i}-480.webp')
+                  h=h.replace(f'"img/{i}-480.webp"',f'"img/{i}-360.webp"')
+          def sub(a,b):
+              global h;assert a in h,a;h=h.replace(a,b)
+          sub('<td><img alt="" src="\'+r.th+\'">','<td><img alt="" loading="lazy" decoding="async" src="\'+r.th+\'">')
+          sub('<img alt="Napa Valley Register print clipping" src="','<img alt="Napa Valley Register print clipping" loading="lazy" decoding="async" src="')
+          sub("ph.style.backgroundImage='url('+r.ph+')';","ph.style.backgroundImage=r.ph?'url('+r.ph+')':'none';")
+          sub("const done=()=>{if(t!==tok)return;","let fin=0;const done=()=>{if(fin||t!==tok)return;fin=1;")
+          sub("(back.decode?back.decode():Promise.resolve()).then(done,done);","(back.decode?back.decode():Promise.resolve()).then(done,done);setTimeout(done,2500);")
+          open('index.html','w').write(h)
+          miss=[x for x in set(re.findall(r'"(img/[\w.-]+\.webp)',h)) if not os.path.exists(x)]
+          assert not miss,miss
+          print(len(h),len(os.listdir('img')))
+          PY
+          git config user.name perf-bot
+          git config user.email perf-bot@users.noreply.github.com
+          git add -A
+          git commit -m 'Performance: web derivatives, lazy loading, no inline images'
+          git push
