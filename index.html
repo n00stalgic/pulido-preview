@@ -493,7 +493,7 @@ const wide=()=>innerWidth>=900;
 const ICO_AR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 3.5 7v10L12 21.5 20.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>';
 const ICO_Z='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m14.5 14.5 6 6M10 7v6M7 10h6"/></svg>';
 /* acquisition row */
-const bid=$('bid');bid.innerHTML='<span class="al">Acquire this work &rarr;</span><span class="am">Opens an email to the studio</span><big id="pp"></big>';
+const bid=$('bid');bid.innerHTML='<span class="al">Purchase &rarr;</span><span class="am">Opens an email to the studio</span><big id="pp"></big>';
 /* secondary actions + details */
 const pp=$('portfolio-place');pp.innerHTML=ICO_AR+'<span>See it in your space</span>';
 const info=$('info');
@@ -531,7 +531,7 @@ function fit(){const room=$('room');if(!wide()){$('bar').style.removeProperty('-
 window.fitRoom=fit;
 /* wrap render */
 const _render=render;
-render=function(){_render();const r=list[i];$('bid').classList.toggle('np',!r.price);bid.querySelector('.al').innerHTML=(r.price?'Acquire this work':'Inquire about this work')+' &rarr;';
+render=function(){_render();const r=list[i];$('bid').classList.toggle('np',!r.price);bid.querySelector('.al').innerHTML=(r.price?'Purchase':'Inquire about this work')+' &rarr;';
  dets(r);setD(false);insp.setAttribute('aria-label','Inspect '+r.title+' at full resolution');fit()};
 addEventListener('resize',fit);
 /* zoom viewer */
