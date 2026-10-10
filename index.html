@@ -381,7 +381,7 @@ mn.addEventListener('click',()=>mo(false));
 $('mw').onclick=()=>{['grid','press','about','cat','lb'].forEach(id=>$(id).classList.remove('on'));ui()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')mo(false)});document.addEventListener('pointerdown',e=>{if(mn.classList.contains('on')&&!e.target.closest('#brand'))mo(false)});
 $('zl').onclick=()=>{if(!anyOpen())go(-1)};$('zr').onclick=()=>{if(!anyOpen())go(1)};
-if(!location.hash.startsWith('#portfolio-'))i=Math.floor(Math.random()*list.length);chips();render();setTimeout(()=>document.body.classList.remove('boot'),700);
+if(!location.hash.startsWith('#portfolio-')){const P=list.map((r,k)=>r.ss?k:-1).filter(k=>k>=0);if(P.length)i=P[Math.floor(Math.random()*P.length)]}chips();render();setTimeout(()=>document.body.classList.remove('boot'),700);
 
 /* Portfolio placement: independent module and data. */
 let portfolioModule;
