@@ -1,0 +1,25 @@
+name: land-fix
+on:
+  push:
+    paths: ['.github/workflows/land-fix.yml']
+permissions:
+  contents: write
+jobs:
+  b:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: edit
+        run: |
+          python3 - <<'PY'
+          h=open('index.html').read()
+          a="i=Math.floor(Math.random()*list.length);"
+          assert h.count(a)==1
+          h=h.replace(a,"{const P=list.map((r,k)=>r.ss?k:-1).filter(k=>k>=0);if(P.length)i=P[Math.floor(Math.random()*P.length)]}")
+          open('index.html','w').write(h)
+          PY
+          git config user.name land-bot
+          git config user.email land-bot@users.noreply.github.com
+          git add -A
+          git commit -m 'Landing picks only sharp works'
+          git push
