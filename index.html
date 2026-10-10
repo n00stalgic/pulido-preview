@@ -199,7 +199,95 @@ body.boot,body.boot *{transition:none!important;animation:none!important}
 #chips[hidden]{display:none!important}.zn{display:none}
 @media(min-width:900px){.zn{display:block;position:absolute;top:70px;bottom:0;width:56px;z-index:3;cursor:pointer}#zl{left:0}#zr{right:0}.zn::after{content:'';position:absolute;top:50%;width:10px;height:10px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);opacity:0;transition:opacity .2s}#zl::after{left:24px;transform:rotate(-45deg)}#zr::after{right:24px;transform:rotate(135deg)}.zn:hover::after{opacity:.7}}
 @media(max-width:899px){#brand:hover #mn:not(.on),#brand:focus-within #mn:not(.on){opacity:0;visibility:hidden}#mn.on{left:-22px;width:100vw;box-sizing:border-box;margin-top:0;padding:6px 22px 8px;background:var(--gr);border-bottom:1px solid color-mix(in srgb,var(--ink) 22%,transparent);box-shadow:0 14px 24px rgba(0,0,0,.28)}#mn button,#mn a{color:var(--ink)!important}#bar .sc{display:none}#cnt{min-width:64px}}
-</style><link rel="manifest" href="site.webmanifest"><link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><style>#portfolio-place{display:block;margin-top:15px;padding:10px 0;color:var(--ink);border:0;border-bottom:1px solid currentColor;background:none;font:12px inherit;cursor:pointer}#portfolio-studio{font:inherit;color:inherit}</style><style id="fix1">@media(min-width:900px){#room{grid-template-columns:minmax(0,calc(100vh - 150px)) 440px;justify-content:center;column-gap:64px}#info{align-self:center;padding-bottom:0}}#portfolio-place{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:0 16px;min-height:36px;border:1px solid color-mix(in srgb,var(--ink) 40%,transparent);border-radius:999px;background:none;color:var(--ink);font:inherit;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;cursor:pointer;transition:background .15s,opacity .15s}#portfolio-place:hover{background:color-mix(in srgb,var(--ink) 14%,transparent);opacity:1}</style></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="zn" id="zl" aria-hidden="true"></div><div class="zn" id="zr" aria-hidden="true"></div><div class="crumbbar"><div id="brand"><button id="bm" aria-expanded="false" aria-haspopup="true">Pulido</button><nav id="mn" aria-label="Site"><button id="mw">Work</button><button id="abtn">About</button><button id="pbtn">Press</button><button id="portfolio-studio">Studio</button><a href="mailto:chas@pulido.art">Contact</a></nav></div><button id="cback" hidden style="margin-left:auto;margin-right:12px;min-height:36px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:none;border:1px solid color-mix(in srgb,var(--ink) 40%,transparent);padding:0 12px;white-space:nowrap">&larr; Catalog</button><span class="c" id="crumb"></span></div>
+</style><link rel="manifest" href="site.webmanifest"><link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"><style>#portfolio-place{display:block;margin-top:15px;padding:10px 0;color:var(--ink);border:0;border-bottom:1px solid currentColor;background:none;font:12px inherit;cursor:pointer}#portfolio-studio{font:inherit;color:inherit}</style><style id="fix1">@media(min-width:900px){#room{grid-template-columns:minmax(0,calc(100vh - 150px)) 440px;justify-content:center;column-gap:64px}#info{align-self:center;padding-bottom:0}}#portfolio-place{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:0 16px;min-height:36px;border:1px solid color-mix(in srgb,var(--ink) 40%,transparent);border-radius:999px;background:none;color:var(--ink);font:inherit;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;cursor:pointer;transition:background .15s,opacity .15s}#portfolio-place:hover{background:color-mix(in srgb,var(--ink) 14%,transparent);opacity:1}</style><style id="rf">/* refine */
+:root{--hl:color-mix(in srgb,var(--ink) 30%,transparent)}
+#app *:focus-visible,#zv *:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:0}
+#info.in>*{animation:none!important}
+.paddle,.paddle:hover,.paddle:active{transform:none!important;filter:none!important}
+.paddle{display:grid!important;grid-template-columns:1fr auto;align-items:center;gap:3px 20px;background:none!important;color:var(--ink)!important;border:0!important;border-top:1px solid var(--ink)!important;border-bottom:1px solid var(--ink)!important;border-radius:0!important;padding:16px 0!important;margin-top:28px!important;justify-content:stretch!important;text-transform:none;transition:none}
+.paddle .al{grid-column:1;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.paddle .am{grid-column:1;font-size:12px;letter-spacing:.02em;opacity:.72;font-weight:400}
+.paddle big{grid-column:2;grid-row:1/3;font-size:clamp(28px,2.4vw,38px)!important;font-weight:700;letter-spacing:-.02em!important}
+.paddle:hover .al{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1.5px}
+.paddle.np big{display:none}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:0 28px;margin-top:6px}
+#portfolio-place,#dtl{display:inline-flex!important;align-items:center;gap:10px;margin:0!important;padding:0!important;min-height:48px;border:0!important;border-radius:0!important;background:none!important;color:var(--ink)!important;font:inherit;font-size:12px!important;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:1!important;cursor:pointer}
+#portfolio-place svg{width:22px;height:22px;flex:none}
+#portfolio-place span,#dtl span{border-bottom:1px solid var(--hl);padding:4px 0}
+#portfolio-place:hover span,#dtl:hover span{border-bottom-color:var(--ink)}
+#dtl{opacity:.78!important}#dtl[aria-expanded=true]{opacity:1!important}
+#dpan{margin-top:6px}
+#dpan[hidden]{display:none}
+#dpan dl{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:10px 18px;font-size:13px;letter-spacing:.04em;padding:14px 0 4px;border-top:1px solid var(--hl)}
+#dpan dt{opacity:.62}#dpan dd{margin:0;font-weight:500}
+.plaque{display:flex!important;flex-wrap:wrap;gap:6px 22px!important;margin-top:20px!important;font-size:13px!important}
+#insp{position:absolute;right:0;bottom:0;z-index:3;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px 0 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-radius:0;cursor:pointer;opacity:.8}
+#insp svg{width:18px;height:18px}
+#insp:hover{opacity:1}
+#art img{cursor:zoom-in}
+/* bar */
+#bar .br1.rf{display:flex!important;flex-wrap:wrap;align-items:stretch;justify-content:space-between;gap:0 28px}
+#bar .grp{display:flex;align-items:center;gap:0 4px}
+#bar .grp+.grp{border-left:1px solid var(--hl);padding-left:28px}
+#bar .grp button,#bar .grp .st{min-height:44px;display:inline-flex;align-items:center}
+#bar .grp button{margin:0 6px!important;padding:0 4px!important;min-width:44px;justify-content:center}
+#bar .grp .st{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.62;margin-right:8px;white-space:nowrap}
+#bar .grp.nv{margin-left:auto;gap:2px}
+#bar .grp.nv button{font-size:26px!important;min-width:48px;margin:0!important}
+#bar .grp.nv #cnt{min-width:96px;text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums;flex:none!important;overflow:visible!important}
+#bar .rt,#bar .lt{display:contents!important}
+#bar .sep,#bar .sp{display:none!important}
+#bar button[aria-pressed=true],#fbtn[aria-expanded=true]{text-decoration:underline!important;text-decoration-thickness:1.5px;text-underline-offset:10px}
+/* zoom viewer */
+#zv{position:fixed;inset:0;z-index:40;display:none;background:var(--gr,#111);color:var(--ink,#fff);overflow:hidden;touch-action:none;user-select:none}
+#zv.on{display:block}
+#zv img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;cursor:grab;-webkit-user-drag:none}
+#zv.pan img{cursor:grabbing}
+#zv .zt{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;z-index:2;pointer-events:none}
+#zv .zt>*{pointer-events:auto}
+#zv button{font:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-radius:0;min-height:44px;min-width:44px;padding:0 10px;cursor:pointer}
+#zv button:hover{text-decoration:underline;text-underline-offset:8px}
+#zv .zc{display:flex;gap:4px;align-items:center}
+#zv .zh{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;pointer-events:none}
+@media(min-width:900px){
+ #room{grid-template-columns:var(--aw,minmax(0,1fr)) 400px!important;column-gap:72px!important;justify-content:center;padding:0 56px!important;grid-template-rows:auto minmax(0,1fr)!important}
+ #room .crumbbar{grid-column:1/3!important}
+ #art{grid-column:1!important;grid-row:2;align-self:center;width:var(--aw);height:var(--ah);padding:0!important;overflow:visible}
+ #art img,#ph{object-position:center!important;background-position:center!important}
+ #info{grid-column:2!important;grid-row:2;align-self:center!important;height:var(--ah);display:flex;flex-direction:column;justify-content:flex-end;padding:0!important}
+ #info h1{font-size:clamp(40px,min(4.6vw,9vh),76px)!important}
+ #insp{right:0;bottom:-44px;padding:0}
+ #bar{padding-left:var(--bp,56px)!important;padding-right:var(--bp,56px)!important}
+}
+@media(max-width:899px){
+ #room{padding:0 18px 10px!important;grid-template-rows:auto minmax(0,1fr) auto!important}
+ #art{padding:6px 0 0!important}
+ #info{padding:14px 0 0!important}
+ #info h1{font-size:34px!important}
+ .plaque{margin-top:10px!important;font-size:12px!important;gap:4px 14px!important}
+ .paddle{margin-top:16px!important;padding:13px 0!important}
+ .paddle big{font-size:26px!important}
+ .acts{gap:0 20px;margin-top:2px}
+ #insp{right:-6px;bottom:0;background:none}
+ #dpan{position:fixed;left:0;right:0;bottom:0;z-index:12;background:var(--gr);padding:18px 22px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--ink);max-height:60vh;overflow:auto}
+ #bar{padding:6px 18px calc(6px + env(safe-area-inset-bottom))!important;gap:0!important}
+ #bar .br1.rf{gap:0 12px}
+ #bar .grp.nv{order:-1;width:100%;margin:0;justify-content:space-between;border:0!important;padding:0!important;border-bottom:1px solid var(--hl)!important}
+ #bar .grp.nv button{min-width:56px}
+ #bar .grp+.grp{border-left:0;padding-left:0}
+ #bar .grp .st{display:none}
+ #bar .grp.vw{flex:1}
+ #bar .grp.fl{overflow-x:auto;flex:none}
+ #bar .grp button{margin:0 2px!important;padding:0 8px!important;min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media(max-width:899px){#dpan dl{grid-template-columns:auto 1fr}}
+@media(max-width:899px){#insp span{display:none}#insp{padding:0;min-width:44px;justify-content:flex-end}#bar .grp button{min-height:40px}#bar .grp.nv button{min-height:44px}}
+#dpan .dcl{display:none}@media(max-width:899px){#dpan .dcl{display:inline-flex;align-items:center;justify-content:center;float:right;min-height:44px;min-width:44px;font:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:0 4px;margin:-8px 0 8px 12px}}
+@media(max-width:899px){#art{overflow:visible!important}}
+#bar .grp.nv #cnt{overflow:visible!important;text-overflow:clip!important;min-width:max-content!important;white-space:nowrap!important;padding:0 8px!important}
+</style></head><body class="boot"><div id="toast"><span id="tt"></span><button id="tc">Copy details</button></div><div id="lb"><img alt="Napa Valley Register print clipping"></div><div id="app"><div id="room"><div class="zn" id="zl" aria-hidden="true"></div><div class="zn" id="zr" aria-hidden="true"></div><div class="crumbbar"><div id="brand"><button id="bm" aria-expanded="false" aria-haspopup="true">Pulido</button><nav id="mn" aria-label="Site"><button id="mw">Work</button><button id="abtn">About</button><button id="pbtn">Press</button><button id="portfolio-studio">Studio</button><a href="mailto:chas@pulido.art">Contact</a></nav></div><button id="cback" hidden style="margin-left:auto;margin-right:12px;min-height:36px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:none;border:1px solid color-mix(in srgb,var(--ink) 40%,transparent);padding:0 12px;white-space:nowrap">&larr; Catalog</button><span class="c" id="crumb"></span></div>
 <div id="art"><div id="ph"></div><img id="im" alt=""><img id="im2" alt=""></div><div id="info"><h1 id="h"></h1><div class="plaque" id="pl"></div><a class="paddle" id="bid" href="mailto:chas@pulido.art"><span>Purchase</span> <big id="pp"></big></a><button id="portfolio-place">See it in your space</button></div></div>
 <div id="bar"><div class="br1"><div class="lt"><span id="st"></span>
 <div class="cl"><button data-y="all" aria-pressed="true">All</button><button id="nbtn" aria-pressed="false">New</button></div><i class="sep"></i>
@@ -390,4 +478,96 @@ $('portfolio-place').onclick=()=>{const r=list[i];location.hash='portfolio-view=
 $('portfolio-studio').onclick=()=>{location.hash='portfolio-studio';};
 window.addEventListener('hashchange',()=>{if(location.hash.startsWith('#portfolio-'))launchPortfolio();});
 if(location.hash.startsWith('#portfolio-'))launchPortfolio();
+</script><script id="rfjs">(function(){
+const NZ={};
+const hx2=h=>[1,3,5].map(k=>parseInt(h.slice(k,k+2),16));
+const lin=c=>{c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)};
+const lum=h=>{const a=hx2(h);return .2126*lin(a[0])+.7152*lin(a[1])+.0722*lin(a[2])};
+const cr=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const DARK='#121212',PAPER='#ECE9E3';
+ROOMS.forEach(r=>{if(r._rf)return;r._rf=1;r.g0=r.ground;const k=r.year+'-'+r.n;
+ if(NZ[k]){if(NZ[k]==='d'){r.ground=DARK;r.ink='#F1EEE8'}else{r.ground=PAPER;r.ink='#121212'}}
+ else if(cr(r.ground,r.ink)<4.5){r.ink=cr(r.ground,'#111111')>=cr(r.ground,'#FAF8F4')?'#111111':'#FAF8F4'}
+ r.accent=r.ink});
+const wide=()=>innerWidth>=900;
+const ICO_AR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 3.5 7v10L12 21.5 20.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>';
+const ICO_Z='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m14.5 14.5 6 6M10 7v6M7 10h6"/></svg>';
+/* acquisition row */
+const bid=$('bid');bid.innerHTML='<span class="al">Acquire this work &rarr;</span><span class="am">Opens an email to the studio</span><big id="pp"></big>';
+/* secondary actions + details */
+const pp=$('portfolio-place');pp.innerHTML=ICO_AR+'<span>See it in your space</span>';
+const info=$('info');
+const acts=document.createElement('div');acts.className='acts';
+const dtl=document.createElement('button');dtl.id='dtl';dtl.setAttribute('aria-expanded','false');dtl.setAttribute('aria-controls','dpan');dtl.innerHTML='<span>Details +</span>';
+pp.after(acts);acts.appendChild(pp);acts.appendChild(dtl);
+const dpan=document.createElement('div');dpan.id='dpan';dpan.hidden=true;dpan.setAttribute('role','region');dpan.setAttribute('aria-label','Artwork details');acts.after(dpan);
+function dets(r){const med=r.plaque.find(s=>/acrylic|canvas|wood|board|oil/i.test(s));const dm=r.plaque.find(s=>/\d\s*\u00d7\s*\d/.test(s));
+ const av=r.plaque.find(s=>/^(available|sold|reserved|on hold)/i.test(s));const rows=[['Year',r.year]];
+ if(med)rows.push(['Medium',med]);if(dm)rows.push(['Dimensions',dm]);if(av)rows.push(['Availability',av]);if(r.price)rows.push(['Price',r.price]);
+ const ser=(r.crumb||'').split(' \u00b7 ')[0];if(ser)rows.push(['Series',ser]);
+ dpan.innerHTML='<button class="dcl" type="button">Close</button><dl>'+rows.map(x=>'<dt>'+x[0]+'</dt><dd>'+x[1].replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</dd>').join('')+'</dl>'}
+dpan.addEventListener('click',e=>{if(e.target.closest('.dcl'))setD(false)});addEventListener('keydown',e=>{if(e.key==='Escape'&&!dpan.hidden&&!zv.classList.contains('on')){setD(false);dtl.focus()}});
+function setD(o){dpan.hidden=!o;dtl.setAttribute('aria-expanded',o);dtl.firstChild.textContent=o?'Details \u2212':'Details +';fit()}
+dtl.onclick=()=>setD(dpan.hidden);
+/* inspect button */
+const art=$('art');const insp=document.createElement('button');insp.id='insp';insp.setAttribute('aria-label','Inspect artwork at full resolution');insp.innerHTML=ICO_Z+'<span>Inspect</span>';art.appendChild(insp);
+/* bottom bar groups */
+const br1=document.querySelector('#bar .br1');br1.classList.add('rf');
+const mk=(cls,label)=>{const g=document.createElement('div');g.className='grp '+cls;g.setAttribute('role','group');g.setAttribute('aria-label',label);return g};
+const gF=mk('fl','Filter works'),gV=mk('vw','View'),gN=mk('nv','Browse');
+const st=$('st');st.classList.add('st');gF.appendChild(st);
+const all=document.querySelector('#bar [data-y="all"]');gF.appendChild(all);gF.appendChild($('nbtn'));gF.appendChild($('fbtn'));
+gV.appendChild($('vbtn'));gV.appendChild($('gbtn'));gV.appendChild($('cbtn'));
+gN.appendChild($('prev'));gN.appendChild($('cnt'));gN.appendChild($('ttl'));gN.appendChild($('next'));
+[...br1.children].forEach(n=>n.remove());br1.append(gV,gF,gN);
+$('prev').setAttribute('aria-label','Previous painting');$('next').setAttribute('aria-label','Next painting');
+/* fit */
+function fit(){const room=$('room');if(!wide()){$('bar').style.removeProperty('--bp');room.style.removeProperty('--aw');room.style.removeProperty('--ah');return}
+ const r=list[i],ar=r.w/r.h,cs=getComputedStyle(room);const padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+ const crumbH=room.querySelector('.crumbbar').offsetHeight,barH=$('bar').offsetHeight;
+ const H=innerHeight-barH-crumbH-48-40,W=room.clientWidth-padX-400-72;
+ let w=Math.min(W,H*ar),h=w/ar;if(h>H){h=H;w=h*ar}
+ const bp=Math.max(24,Math.floor((innerWidth-Math.max(w+72+400,940))/2));$('bar').style.setProperty('--bp',bp+'px');room.style.setProperty('--aw',Math.floor(w)+'px');room.style.setProperty('--ah',Math.floor(h)+'px')}
+window.fitRoom=fit;
+/* wrap render */
+const _render=render;
+render=function(){_render();const r=list[i];$('bid').classList.toggle('np',!r.price);bid.querySelector('.al').innerHTML=(r.price?'Acquire this work':'Inquire about this work')+' &rarr;';
+ dets(r);setD(false);insp.setAttribute('aria-label','Inspect '+r.title+' at full resolution');fit()};
+addEventListener('resize',fit);
+/* zoom viewer */
+const zv=document.createElement('div');zv.id='zv';zv.setAttribute('role','dialog');zv.setAttribute('aria-modal','true');zv.setAttribute('aria-label','Artwork inspection');zv.tabIndex=-1;
+zv.innerHTML='<div class="zt"><span id="zt"></span><span class="zc"><button id="zo" aria-label="Zoom out">&minus;</button><button id="zi" aria-label="Zoom in">+</button><button id="zf" aria-label="Fit to screen">Fit</button><button id="zx" aria-label="Close">Close</button></span></div><img alt=""><div class="zh">Scroll or pinch to zoom &middot; drag to pan &middot; Esc to close</div>';
+document.body.appendChild(zv);
+const zimg=zv.querySelector('img');let S={s:1,x:0,y:0,min:1,max:3,nw:1,nh:1},ret=null;
+function best(r){if(r.ss){const p=r.ss.split(', ').pop().split(' ')[0];return p}return r.src}
+function clamp(){const W=zv.clientWidth,H=zv.clientHeight,w=S.nw*S.s,h=S.nh*S.s;
+ S.x=w<=W?(W-w)/2:Math.min(0,Math.max(W-w,S.x));S.y=h<=H?(H-h)/2:Math.min(0,Math.max(H-h,S.y))}
+function apply(){clamp();zimg.style.transform='translate('+S.x+'px,'+S.y+'px) scale('+S.s+')'}
+function fitView(){const W=zv.clientWidth,H=zv.clientHeight-120;S.min=Math.min(W/S.nw,H/S.nh);S.s=S.min;S.max=Math.max(S.min*4,1.5);S.x=(W-S.nw*S.s)/2;S.y=64+(H-S.nh*S.s)/2;apply()}
+function zoomAt(f,cx,cy){const n=Math.min(S.max,Math.max(S.min,S.s*f));const k=n/S.s;S.x=cx-(cx-S.x)*k;S.y=cy-(cy-S.y)*k;S.s=n;apply()}
+function openZ(){const r=list[i];ret=document.activeElement;zv.style.setProperty('--gr',r.ground);zv.style.setProperty('--ink',r.ink);$('zt').textContent=r.title;
+ zimg.alt=r.title;zimg.onload=()=>{S.nw=zimg.naturalWidth;S.nh=zimg.naturalHeight;zimg.style.width=S.nw+'px';zimg.style.height=S.nh+'px';fitView()};
+ zimg.removeAttribute('src');zimg.src=best(r);zv.classList.add('on');zv.focus();if(zimg.complete&&zimg.naturalWidth)zimg.onload()}
+function closeZ(){zv.classList.remove('on');zimg.removeAttribute('src');if(ret&&ret.focus)ret.focus()}
+art.addEventListener('click',e=>{if(e.target.closest('#insp')||e.target.tagName==='IMG'||e.target.id==='ph'||e.target===art)openZ()});
+insp.onclick=e=>{e.stopPropagation();openZ()};
+$('zx').onclick=closeZ;$('zi').onclick=()=>zoomAt(1.5,zv.clientWidth/2,zv.clientHeight/2);$('zo').onclick=()=>zoomAt(1/1.5,zv.clientWidth/2,zv.clientHeight/2);$('zf').onclick=fitView;
+zv.addEventListener('wheel',e=>{e.preventDefault();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX,e.clientY)},{passive:false});
+const P=new Map();let drag=null,pinch=0;
+zv.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;zv.setPointerCapture(e.pointerId);P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size===1){drag={x:e.clientX-S.x,y:e.clientY-S.y,moved:0};zv.classList.add('pan')}else{const a=[...P.values()];pinch=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])}});
+zv.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return;P.set(e.pointerId,[e.clientX,e.clientY]);
+ if(P.size===2){const a=[...P.values()],d=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);if(pinch)zoomAt(d/pinch,(a[0][0]+a[1][0])/2,(a[0][1]+a[1][1])/2);pinch=d}
+ else if(drag){S.x=e.clientX-drag.x;S.y=e.clientY-drag.y;apply()}});
+const up=e=>{P.delete(e.pointerId);if(P.size<2)pinch=0;if(!P.size){drag=null;zv.classList.remove('pan')}};
+zv.addEventListener('pointerup',up);zv.addEventListener('pointercancel',up);
+zv.addEventListener('dblclick',e=>{if(e.target.closest('button'))return;if(S.s>S.min*1.05)fitView();else zoomAt(Math.min(S.max/S.s,Math.max(1/S.min,2)),e.clientX,e.clientY)});
+addEventListener('keydown',e=>{if(!zv.classList.contains('on'))return;const k=e.key;
+ if(k==='Escape'){closeZ()}else if(k==='+'||k==='='){zoomAt(1.4,zv.clientWidth/2,zv.clientHeight/2)}else if(k==='-'){zoomAt(1/1.4,zv.clientWidth/2,zv.clientHeight/2)}else if(k==='0'){fitView()}
+ else if(k.startsWith('Arrow')){const d=80;if(k==='ArrowLeft')S.x+=d;if(k==='ArrowRight')S.x-=d;if(k==='ArrowUp')S.y+=d;if(k==='ArrowDown')S.y-=d;apply()}
+ else if(k==='Tab'){const b=[...zv.querySelectorAll('button')];const f=b.indexOf(document.activeElement);e.preventDefault();b[(f+(e.shiftKey?-1:1)+b.length)%b.length].focus();return}
+ else return;e.preventDefault();e.stopImmediatePropagation()},true);
+/* toolbar roles */
+document.getElementById('bar').setAttribute('role','toolbar');document.getElementById('bar').setAttribute('aria-label','Catalog navigation');
+chips();render();
+})();
 </script></body></html>
